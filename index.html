@@ -58,80 +58,76 @@
         <section id="hero" style="min-height:100vh; display:flex; align-items:center; padding-top: 100px;">
             <div class="w-fit mx-auto flex flex-col md:flex-row items-center justify-center gap-16 md:gap-[120px]">
 
-                    <!-- Profile Image (LEFT on desktop, stacks on top on mobile) -->
-                    <div class="flex flex-col items-center gap-6 shrink-0">
-                        <div
-                            style="width:200px; height:200px; border:1px solid var(--brand); border-radius:4px; display:flex; align-items:center; justify-content:center; background:var(--brand-soft); position:relative;">
-                            <svg width="48" height="48" viewBox="0 0 64 64" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="32" cy="22" r="14" stroke="var(--brand)" stroke-width="2" />
-                                <path d="M8 58c0-13.255 10.745-24 24-24s24 10.745 24 24" stroke="var(--brand)"
-                                    stroke-width="2" stroke-linecap="square" />
-                            </svg>
-                            <div style="position:absolute; bottom:8px; right:8px; font-size:11px; color:var(--brand);">
-                                user.img</div>
-                        </div>
-                        <div
-                            style="border:1px solid var(--border-subtle); border-radius:4px; padding:6px 12px; display:flex; align-items:center; gap:8px;">
-                            <span style="width:8px; height:8px; background:var(--brand); display:block;"></span>
-                            <span style="font-size:12px; font-weight:500; text-transform:uppercase;">Status:
-                                Available</span>
-                        </div>
+                <!-- Profile Image (LEFT on desktop, stacks on top on mobile) -->
+                <div class="flex flex-col items-center gap-6 shrink-0">
+                    <div
+                        style="width:200px; height:200px; border:1px solid var(--brand); border-radius:4px; display:flex; align-items:center; justify-content:center; background:var(--brand-soft); position:relative;">
+                        <img src="Imgs/User_img.png" alt="Youssef"
+                            style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;" />
+                        <div style="position:absolute; bottom:8px; right:8px; font-size:11px; color:var(--brand);">
+                            user.img</div>
+                    </div>
+                    <div
+                        style="border:1px solid var(--border-subtle); border-radius:4px; padding:6px 12px; display:flex; align-items:center; gap:8px;">
+                        <span style="width:8px; height:8px; background:var(--brand); display:block;"></span>
+                        <span style="font-size:12px; font-weight:500; text-transform:uppercase;">Status:
+                            Available</span>
+                    </div>
+                </div>
+
+                <!-- Text Content (RIGHT on desktop) -->
+                <div class="max-w-2xl">
+                    <div
+                        style="color:var(--brand); font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:1px; margin-bottom:16px;">
+                        [ SYS.INFO ] Software Engineering · King Saud University</div>
+                    <h1 style="margin-bottom:12px;">
+                        <span style="color:var(--success);">youssef</span><span
+                            style="color:var(--text-body);">@</span><span style="color:var(--brand);">fedora</span>
+                        <span style="color:var(--text-body);">~$</span> ./build_web.sh<span
+                            class="cursor-blink">█</span>
+                    </h1>
+                    <h2 style="color:var(--brand); margin-bottom:24px;">
+                        Building the web,<br />
+                        <span style="color:var(--text-body);">one line at a time.</span>
+                    </h2>
+                    <p style="font-size:18px; line-height:1.6; max-width:65ch; margin-bottom:32px;">
+                        Passionate about <strong style="color:var(--brand);">web development</strong>, <strong
+                            style="color:var(--brand);">mathematics</strong>, and clean code. Currently studying at
+                        KSU and building things that matter.
+                    </p>
+                    <div style="display:flex; gap:16px; flex-wrap:wrap; margin-bottom:48px;">
+                        <a href="#projects" class="btn">View Projects</a>
+                        <a href="#contact" class="btn"
+                            style="background:transparent; color:var(--text-heading); border-color:var(--border-subtle);">Init
+                            Contact</a>
                     </div>
 
-                    <!-- Text Content (RIGHT on desktop) -->
-                    <div class="max-w-2xl">
-                        <div
-                            style="color:var(--brand); font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:1px; margin-bottom:16px;">
-                            [ SYS.INFO ] Software Engineering · King Saud University</div>
-                        <h1 style="margin-bottom:12px;">
-                            <span style="color:var(--success);">youssef</span><span
-                                style="color:var(--text-body);">@</span><span style="color:var(--brand);">fedora</span>
-                            <span style="color:var(--text-body);">~$</span> ./build_web.sh<span
-                                class="cursor-blink">█</span>
-                        </h1>
-                        <h2 style="color:var(--brand); margin-bottom:24px;">
-                            Building the web,<br />
-                            <span style="color:var(--text-body);">one line at a time.</span>
-                        </h2>
-                        <p style="font-size:18px; line-height:1.6; max-width:65ch; margin-bottom:32px;">
-                            Passionate about <strong style="color:var(--brand);">web development</strong>, <strong
-                                style="color:var(--brand);">mathematics</strong>, and clean code. Currently studying at
-                            KSU and building things that matter.
-                        </p>
-                        <div style="display:flex; gap:16px; flex-wrap:wrap; margin-bottom:48px;">
-                            <a href="#projects" class="btn">View Projects</a>
-                            <a href="#contact" class="btn"
-                                style="background:transparent; color:var(--text-heading); border-color:var(--border-subtle);">Init
-                                Contact</a>
+                    <div style="display:flex; gap:32px; flex-wrap:wrap;">
+                        <div>
+                            <div style="font-weight:600; font-size:24px; color:var(--brand); line-height:1;">3+
+                            </div>
+                            <div
+                                style="font-size:11px; font-weight:500; color:var(--text-body); text-transform:uppercase; margin-top:4px;">
+                                Yrs Coding</div>
                         </div>
-
-                        <div style="display:flex; gap:32px; flex-wrap:wrap;">
-                            <div>
-                                <div style="font-weight:600; font-size:24px; color:var(--brand); line-height:1;">3+
-                                </div>
-                                <div
-                                    style="font-size:11px; font-weight:500; color:var(--text-body); text-transform:uppercase; margin-top:4px;">
-                                    Yrs Coding</div>
+                        <div style="width:1px; background:var(--border-subtle);"></div>
+                        <div>
+                            <div style="font-weight:600; font-size:24px; color:var(--brand); line-height:1;">10+
                             </div>
-                            <div style="width:1px; background:var(--border-subtle);"></div>
-                            <div>
-                                <div style="font-weight:600; font-size:24px; color:var(--brand); line-height:1;">10+
-                                </div>
-                                <div
-                                    style="font-size:11px; font-weight:500; color:var(--text-body); text-transform:uppercase; margin-top:4px;">
-                                    Projects</div>
+                            <div
+                                style="font-size:11px; font-weight:500; color:var(--text-body); text-transform:uppercase; margin-top:4px;">
+                                Projects</div>
+                        </div>
+                        <div style="width:1px; background:var(--border-subtle);"></div>
+                        <div>
+                            <div style="font-weight:600; font-size:24px; color:var(--brand); line-height:1;">KSU
                             </div>
-                            <div style="width:1px; background:var(--border-subtle);"></div>
-                            <div>
-                                <div style="font-weight:600; font-size:24px; color:var(--brand); line-height:1;">KSU
-                                </div>
-                                <div
-                                    style="font-size:11px; font-weight:500; color:var(--text-body); text-transform:uppercase; margin-top:4px;">
-                                    University</div>
-                            </div>
+                            <div
+                                style="font-size:11px; font-weight:500; color:var(--text-body); text-transform:uppercase; margin-top:4px;">
+                                University</div>
                         </div>
                     </div>
+                </div>
 
             </div>
         </section>
@@ -606,11 +602,20 @@
         <div class="matrix-divider"></div>
 
         <section id="media">
-            <div style="margin-bottom:48px;">
-                <div
-                    style="color:var(--brand); font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">
-                    [ DIR: ~/Personal_Log ]</div>
-                <h2>Movies & Shows</h2>
+            <div style="display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:48px;">
+                <div>
+                    <div
+                        style="color:var(--brand); font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">
+                        [ DIR: ~/Personal_Log ]</div>
+                    <h2>Movies & Shows</h2>
+                </div>
+                <a href="#" target="_blank" rel="noopener" class="btn"
+                    style="padding:6px 12px; font-size:12px; display:flex; align-items:center; gap:6px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M22.09 5.89h-3.66v12.22h3.66V5.89ZM7.82 5.89v12.22H3.77V5.89h4.05ZM17.15 5.89h-7.61v12.22h3.81v-3.79h3.8a2.53 2.53 0 0 0 2.53-2.53V8.42a2.53 2.53 0 0 0-2.53-2.53Zm0 5.9h-3.81V8.42h3.81v3.37Z"/>
+                    </svg>
+                    IMDb Profile
+                </a>
             </div>
 
             <div
@@ -618,63 +623,68 @@
                 [ TOP_PICKS ]</div>
             <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-12">
                 <div class="card p-3" style="text-align:center;">
-                    <div style="font-size:32px; margin-bottom:8px; color:var(--text-heading);">[M]</div>
-                    <div style="font-weight:600; color:var(--text-heading); font-size:12px;">MCU</div>
-                    <div style="font-size:10px; color:var(--brand);">9.2/10</div>
+                    <img src="Imgs/Game of thrones.jpg" alt="Game of Thrones"
+                        class="w-full aspect-[2/3] object-cover rounded-[4px] mb-2" />
+                    <div style="font-weight:600; color:var(--text-heading); font-size:12px;">Game of Thrones</div>
+                    <div style="font-size:10px; color:var(--brand);">10/10</div>
                 </div>
                 <div class="card p-3" style="text-align:center;">
-                    <div style="font-size:32px; margin-bottom:8px; color:var(--text-heading);">[B]</div>
-                    <div style="font-weight:600; color:var(--text-heading); font-size:12px;">Breaking Bad</div>
+                    <img src="Imgs/La casa de papel.jpg" alt="La Casa de Papel"
+                        class="w-full aspect-[2/3] object-cover rounded-[4px] mb-2" />
+                    <div style="font-weight:600; color:var(--text-heading); font-size:12px;">La Casa de Papel</div>
+                    <div style="font-size:10px; color:var(--brand);">10/10</div>
+                </div>
+                <div class="card p-3" style="text-align:center;">
+                    <img src="Imgs/Inception.jpg" alt="Inception"
+                        class="w-full aspect-[2/3] object-cover rounded-[4px] mb-2" />
+                    <div style="font-weight:600; color:var(--text-heading); font-size:12px;">Inception</div>
                     <div style="font-size:10px; color:var(--brand);">9.5/10</div>
                 </div>
                 <div class="card p-3" style="text-align:center;">
-                    <div style="font-size:32px; margin-bottom:8px; color:var(--text-heading);">[I]</div>
+                    <img src="Imgs/Infinity war.jpg" alt="Infinity War"
+                        class="w-full aspect-[2/3] object-cover rounded-[4px] mb-2" />
+                    <div style="font-weight:600; color:var(--text-heading); font-size:12px;">Infinity War</div>
+                    <div style="font-size:10px; color:var(--brand);">9.5/10</div>
+                </div>
+                <div class="card p-3" style="text-align:center;">
+                    <img src="Imgs/Interstellar.jpg" alt="Interstellar"
+                        class="w-full aspect-[2/3] object-cover rounded-[4px] mb-2" />
                     <div style="font-weight:600; color:var(--text-heading); font-size:12px;">Interstellar</div>
-                    <div style="font-size:10px; color:var(--brand);">8.6/10</div>
-                </div>
-                <div class="card p-3" style="text-align:center;">
-                    <div style="font-size:32px; margin-bottom:8px; color:var(--text-heading);">[O]</div>
-                    <div style="font-weight:600; color:var(--text-heading); font-size:12px;">The Office</div>
-                    <div style="font-size:10px; color:var(--brand);">9.0/10</div>
-                </div>
-                <div class="card p-3" style="text-align:center;">
-                    <div style="font-size:32px; margin-bottom:8px; color:var(--text-heading);">[D]</div>
-                    <div style="font-weight:600; color:var(--text-heading); font-size:12px;">Dark</div>
-                    <div style="font-size:10px; color:var(--brand);">8.8/10</div>
+                    <div style="font-size:10px; color:var(--brand);">9.5/10</div>
                 </div>
             </div>
 
             <div
                 style="margin-bottom:24px; color:var(--brand); font-size:12px; border-bottom:1px solid var(--border-subtle); padding-bottom:8px;">
-                [ RECENTLY_WATCHED ]</div>
+                [ ALSO_LIKED ]</div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="card p-4 flex flex-row justify-between items-center">
-                    <div>
-                        <div style="font-weight:600; color:var(--text-heading); font-size:14px;">Avengers: Endgame</div>
-                        <div style="font-size:12px;">Action · Marvel</div>
+                <div class="card p-4 flex flex-row items-center gap-4">
+                    <img src="Imgs/Titanic.jpg" alt="Titanic" class="w-12 h-12 object-cover rounded-[6px] shrink-0" />
+                    <div class="flex flex-col">
+                        <div style="font-weight:600; color:var(--text-heading); font-size:14px;">Titanic</div>
+                        <div style="color:var(--brand); font-size:12px;">9.5/10</div>
                     </div>
-                    <div style="color:var(--brand); font-size:12px;">[ 8.4 ]</div>
                 </div>
-                <div class="card p-4 flex flex-row justify-between items-center">
-                    <div>
-                        <div style="font-weight:600; color:var(--text-heading); font-size:14px;">Sherlock</div>
-                        <div style="font-size:12px;">Mystery · BBC</div>
+                <div class="card p-4 flex flex-row items-center gap-4">
+                    <img src="Imgs/Suits.jpg" alt="Suits" class="w-12 h-12 object-cover rounded-[6px] shrink-0" />
+                    <div class="flex flex-col">
+                        <div style="font-weight:600; color:var(--text-heading); font-size:14px;">Suits</div>
+                        <div style="color:var(--brand); font-size:12px;">9.5/10</div>
                     </div>
-                    <div style="color:var(--brand); font-size:12px;">[ 9.1 ]</div>
                 </div>
-                <div class="card p-4 flex flex-row justify-between items-center">
-                    <div>
-                        <div style="font-weight:600; color:var(--text-heading); font-size:14px;">Better Call Saul</div>
-                        <div style="font-size:12px;">Drama · AMC</div>
+                <div class="card p-4 flex flex-row items-center gap-4">
+                    <img src="Imgs/The wolf of wall street.jpg" alt="The Wolf of Wall Street" class="w-12 h-12 object-cover rounded-[6px] shrink-0" />
+                    <div class="flex flex-col">
+                        <div style="font-weight:600; color:var(--text-heading); font-size:14px;">The Wolf of Wall Street</div>
+                        <div style="color:var(--brand); font-size:12px;">9/10</div>
                     </div>
-                    <div style="color:var(--brand); font-size:12px;">[ 8.9 ]</div>
                 </div>
-                <div class="card p-4 flex flex-row justify-between items-center">
-                    <div>
-                        <div style="font-weight:600; color:var(--text-heading); font-size:14px;">Black Mirror</div>
-                        <div style="font-size:12px;">Sci-Fi · Netflix</div>
+                <div class="card p-4 flex flex-row items-center gap-4">
+                    <img src="Imgs/F1.jpg" alt="F1" class="w-12 h-12 object-cover rounded-[6px] shrink-0" />
+                    <div class="flex flex-col">
+                        <div style="font-weight:600; color:var(--text-heading); font-size:14px;">F1</div>
+                        <div style="color:var(--brand); font-size:12px;">9/10</div>
                     </div>
-                    <div style="color:var(--brand); font-size:12px;">[ 8.8 ]</div>
                 </div>
             </div>
         </section>
