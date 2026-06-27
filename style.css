@@ -135,8 +135,9 @@ section {
 }
 
 .btn:hover {
-    background: var(--brand);
-    color: var(--bg-dark);
+    background: var(--brand-soft) !important;
+    color: var(--text-heading) !important;
+    border-color: var(--brand) !important;
     box-shadow: 0 0 10px rgba(56, 157, 198, 0.3);
 }
 
