@@ -1,0 +1,275 @@
+:root {
+    /* Base Colors */
+    --bg-dark: #020804;
+    --brand: #389DC6;
+    --brand-soft: rgba(56, 157, 198, 0.15);
+    --brand-strong: #2A7A9B;
+
+    /* Text Colors */
+    --text-heading: #F5F3EF;
+    --text-body: #9C968E;
+    --text-brand: #389DC6;
+    --text-brand-strong: #88C5E0;
+
+    /* Borders */
+    --border-subtle: #163E4F;
+    --border-default: #389DC6;
+
+    /* Status */
+    --danger: #C70036;
+    --success: #007A55;
+    --warning: #F97316;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-body);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Terminal Scanline Overlay */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(rgba(56, 157, 198, 0.03) 50%, transparent 50%);
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--text-heading);
+    font-weight: 600;
+}
+
+/* Typography Scale */
+h1 {
+    font-size: clamp(28px, 5vw, 48px);
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+}
+
+h2 {
+    font-size: clamp(24px, 4vw, 36px);
+    line-height: 1.15;
+}
+
+h3 {
+    font-size: clamp(20px, 3vw, 30px);
+    line-height: 1.2;
+}
+
+/* Layout & Dividers */
+section {
+    padding: 64px 16px;
+    max-width: 1152px;
+    margin: 0 auto;
+    background-color: var(--bg-dark);
+}
+
+.matrix-divider {
+    width: 100%;
+    max-width: 1152px;
+    height: 1px;
+    border-bottom: 1px dashed var(--brand);
+    position: relative;
+    margin: 0 auto;
+}
+
+.matrix-divider::before,
+.matrix-divider::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    width: 5px;
+    height: 5px;
+    background: var(--brand);
+}
+
+.matrix-divider::before {
+    left: 0;
+}
+
+.matrix-divider::after {
+    right: 0;
+}
+
+/* Interactive Elements */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: var(--brand-soft);
+    border: 1px solid var(--border-default);
+    color: var(--brand);
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 150ms ease-out;
+}
+
+.btn:hover {
+    background: var(--brand);
+    color: var(--bg-dark);
+    box-shadow: 0 0 10px rgba(56, 157, 198, 0.3);
+}
+
+/* ── Card: Tiling WM Focus Effect ── */
+.card {
+    background: var(--bg-dark);
+    border: 1px solid var(--border-subtle);
+    border-radius: 4px;
+    transition: border-color 80ms ease-out, box-shadow 80ms ease-out;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+.card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 0 0 1px var(--brand) inset, 0 0 12px rgba(56, 157, 198, 0.15);
+}
+
+/* ── Terminal Window Chrome (pseudo-header with dots) ── */
+.terminal-chrome {
+    position: relative;
+}
+
+.terminal-chrome::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 24px;
+    background: rgba(56, 157, 198, 0.06);
+    border-bottom: 1px solid var(--border-subtle);
+    /* Dots are drawn via box-shadow on ::after */
+}
+
+.terminal-chrome::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 12px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--danger);
+    box-shadow:
+        14px 0 0 var(--warning),
+        28px 0 0 var(--success);
+}
+
+/* ── Blinking Cursor Animation ── */
+@keyframes blink-cursor {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.cursor-blink {
+    display: inline-block;
+    color: var(--brand);
+    animation: blink-cursor 1s step-end infinite;
+    font-weight: 400;
+    margin-left: 2px;
+}
+
+.tag-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 8px;
+    border-radius: 9999px;
+    background: var(--brand-soft);
+    border: 1px solid var(--border-subtle);
+    color: var(--brand);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.inp {
+    background: #1C1A16;
+    /* neutral-secondary-medium mapping to dark */
+    background: var(--bg-dark);
+    border: 1px solid var(--border-subtle);
+    border-radius: 4px;
+    padding: 10px 12px;
+    color: var(--text-heading);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    width: 100%;
+    outline: none;
+    transition: all 200ms ease;
+}
+
+.inp:focus {
+    border-color: var(--brand);
+    box-shadow: 0 0 0 1px var(--brand);
+}
+
+.inp::placeholder {
+    color: var(--text-body);
+}
+
+.nav-link {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-body);
+    text-decoration: none;
+    transition: color 150ms ease;
+    text-transform: uppercase;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--brand);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+    border-left: 1px solid var(--border-subtle);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-subtle);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--brand);
+}
+
+/* Lightbox */
+#lightbox {
+    z-index: 100;
+}
