@@ -57,4 +57,4 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 
 ## 📜 License & Copyright
 
-Copyright &copy; 2026 Youssef Ammar. All rights reserved. Built with Fedora & Caffeine.
+Copyright &copy; 2026 Youssef Almghraby. All rights reserved. Built with Fedora & Caffeine.
