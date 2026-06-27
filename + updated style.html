@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Youssef — Software Engineering Student</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        :root {
+            /* Base Colors */
+            --bg-dark: #020804;
+            --brand: #389DC6;
+            --brand-soft: rgba(56, 157, 198, 0.15);
+            --brand-strong: #2A7A9B;
+
+            /* Text Colors */
+            --text-heading: #F5F3EF;
+            --text-body: #9C968E;
+            --text-brand: #389DC6;
+            --text-brand-strong: #88C5E0;
+
+            /* Borders */
+            --border-subtle: #163E4F;
+            --border-default: #389DC6;
+
+            /* Status */
+            --danger: #C70036;
+            --success: #007A55;
+            --warning: #F97316;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-body);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Terminal Scanline Overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(rgba(56, 157, 198, 0.03) 50%, transparent 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            color: var(--text-heading);
+            font-weight: 600;
+        }
+
+        /* Typography Scale */
+        h1 {
+            font-size: clamp(28px, 5vw, 48px);
+            line-height: 1.1;
+            letter-spacing: -0.5px;
+        }
+
+        h2 {
+            font-size: clamp(24px, 4vw, 36px);
+            line-height: 1.15;
+        }
+
+        h3 {
+            font-size: clamp(20px, 3vw, 30px);
+            line-height: 1.2;
+        }
+
+        /* Layout & Dividers */
+        section {
+            padding: 64px 16px;
+            max-width: 1152px;
+            margin: 0 auto;
+            background-color: var(--bg-dark);
+        }
+
+        .matrix-divider {
+            width: 100%;
+            max-width: 1152px;
+            height: 1px;
+            border-bottom: 1px dashed var(--brand);
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .matrix-divider::before,
+        .matrix-divider::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            width: 5px;
+            height: 5px;
+            background: var(--brand);
+        }
+
+        .matrix-divider::before {
+            left: 0;
+        }
+
+        .matrix-divider::after {
+            right: 0;
+        }
+
+        /* Interactive Elements */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: var(--brand-soft);
+            border: 1px solid var(--border-default);
+            color: var(--brand);
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 150ms ease-out;
+        }
+
+        .btn:hover {
+            background: var(--brand);
+            color: var(--bg-dark);
+            box-shadow: 0 0 10px rgba(56, 157, 198, 0.3);
+        }
+
+        /* ── Card: Tiling WM Focus Effect ── */
+        .card {
+            background: var(--bg-dark);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            transition: border-color 80ms ease-out, box-shadow 80ms ease-out;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card:hover {
+            border-color: var(--brand);
+            box-shadow: 0 0 0 1px var(--brand) inset, 0 0 12px rgba(56, 157, 198, 0.15);
+        }
+
+        /* ── Terminal Window Chrome (pseudo-header with dots) ── */
+        .terminal-chrome {
+            position: relative;
+        }
+
+        .terminal-chrome::before {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 24px;
+            background: rgba(56, 157, 198, 0.06);
+            border-bottom: 1px solid var(--border-subtle);
+            /* Dots are drawn via box-shadow on ::after */
+        }
+
+        .terminal-chrome::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 12px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--danger);
+            box-shadow:
+                14px 0 0 var(--warning),
+                28px 0 0 var(--success);
+        }
+
+        /* ── Blinking Cursor Animation ── */
+        @keyframes blink-cursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .cursor-blink {
+            display: inline-block;
+            color: var(--brand);
+            animation: blink-cursor 1s step-end infinite;
+            font-weight: 400;
+            margin-left: 2px;
+        }
+
+        .tag-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 2px 8px;
+            border-radius: 9999px;
+            background: var(--brand-soft);
+            border: 1px solid var(--border-subtle);
+            color: var(--brand);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .inp {
+            background: #1C1A16;
+            /* neutral-secondary-medium mapping to dark */
+            background: var(--bg-dark);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            padding: 10px 12px;
+            color: var(--text-heading);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            width: 100%;
+            outline: none;
+            transition: all 200ms ease;
+        }
+
+        .inp:focus {
+            border-color: var(--brand);
+            box-shadow: 0 0 0 1px var(--brand);
+        }
+
+        .inp::placeholder {
+            color: var(--text-body);
+        }
+
+        .nav-link {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-body);
+            text-decoration: none;
+            transition: color 150ms ease;
+            text-transform: uppercase;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--brand);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+            border-left: 1px solid var(--border-subtle);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-subtle);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--brand);
+        }
+
+        /* Lightbox */
+        #lightbox {
+            z-index: 100;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-wrap">
+
+        <!-- ══════════════════════════════════════════════ -->
+        <!-- NAVBAR — fixed layout bug: removed inline     -->
+        <!-- display from #ham so Tailwind responsive       -->
+        <!-- classes work correctly                         -->
+        <!-- ══════════════════════════════════════════════ -->
+        <nav
+            style="position:fixed; top:0; left:0; right:0; z-index:50; background-color: var(--bg-dark); border-bottom: 1px dashed var(--brand);">
+            <div
+                style="max-width:1152px; margin:0 auto; padding:16px; display:flex; align-items:center; justify-content:space-between;">
+                <a href="#hero" style="font-weight:700; font-size:18px; color:var(--brand); text-decoration:none;">>
+                    YOUSSEF_</a>
+                <ul style="list-style:none; gap:24px;" class="hidden md:flex">
+                    <li><a href="#about" class="nav-link">~/About</a></li>
+                    <li><a href="#projects" class="nav-link">~/Projects</a></li>
+                    <li><a href="#achievements" class="nav-link">~/Milestones</a></li>
+                    <li><a href="#courses" class="nav-link">~/Courses</a></li>
+                    <li><a href="#penguins" class="nav-link">~/Penguins</a></li>
+                    <li><a href="#media" class="nav-link">~/Media</a></li>
+                    <li><a href="#contact" class="nav-link">~/Contact</a></li>
+                </ul>
+                <!-- BUG FIX: removed inline style="display:flex" which overrode Tailwind's md:hidden -->
+                <button id="ham" aria-label="Menu"
+                    class="block md:hidden"
+                    style="background:none; border:none; cursor:pointer; color:var(--brand); padding:4px;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" />
+                    </svg>
+                </button>
+            </div>
+            <div id="mobile-nav" style="display:none; border-top:1px dashed var(--border-subtle); padding:16px;">
+                <ul style="list-style:none; display:flex; flex-direction:column; gap:16px;">
+                    <li><a href="#about" onclick="closeNav()" class="nav-link">~/About</a></li>
+                    <li><a href="#projects" onclick="closeNav()" class="nav-link">~/Projects</a></li>
+                    <li><a href="#achievements" onclick="closeNav()" class="nav-link">~/Milestones</a></li>
+                    <li><a href="#courses" onclick="closeNav()" class="nav-link">~/Courses</a></li>
+                    <li><a href="#penguins" onclick="closeNav()" class="nav-link">~/Penguins</a></li>
+                    <li><a href="#media" onclick="closeNav()" class="nav-link">~/Media</a></li>
+                    <li><a href="#contact" onclick="closeNav()" class="nav-link">~/Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- ══════════ HERO — Terminal Login Prompt ══════════ -->
+        <section id="hero" style="min-height:100vh; display:flex; align-items:center; padding-top: 100px;">
+            <div style="width:100%;">
+                <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-12 items-center">
+                    <div>
+                        <div
+                            style="color:var(--brand); font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:1px; margin-bottom:16px;">
+                            [ SYS.INFO ] Software Engineering · King Saud University</div>
+                        <h1 style="margin-bottom:12px;">
+                            <span style="color:var(--success);">youssef</span><span style="color:var(--text-body);">@</span><span style="color:var(--brand);">fedora</span> <span style="color:var(--text-body);">~$</span> ./build_web.sh<span class="cursor-blink">█</span>
+                        </h1>
+                        <h2 style="color:var(--brand); margin-bottom:24px;">
+                            Building the web,<br />
+                            <span style="color:var(--text-body);">one line at a time.</span>
+                        </h2>
+                        <p style="font-size:18px; line-height:1.6; max-width:65ch; margin-bottom:32px;">
+                            Passionate about <strong style="color:var(--brand);">web development</strong>, <strong
+                                style="color:var(--brand);">mathematics</strong>, and clean code. Currently studying at
+                            KSU and building things that matter.
+                        </p>
+                        <div style="display:flex; gap:16px; flex-wrap:wrap; margin-bottom:48px;">
+                            <a href="#projects" class="btn">View Projects</a>
+                            <a href="#contact" class="btn"
+                                style="background:transparent; color:var(--text-heading); border-color:var(--border-subtle);">Init
+                                Contact</a>
+                        </div>
+
+                        <div style="display:flex; gap:32px; flex-wrap:wrap;">
+                            <div>
+                                <div style="font-weight:600; font-size:24px; color:var(--brand); line-height:1;">3+
+                                </div>
+                                <div
+                                    style="font-size:11px; font-weight:500; color:var(--text-body); text-transform:uppercase; margin-top:4px;">
+                                    Yrs Coding</div>
+                            </div>
+                            <div style="width:1px; background:var(--border-subtle);"></div>
+                            <div>
+                                <div style="font-weight:600; font-size:24px; color:var(--brand); line-height:1;">10+
+                                </div>
+                                <div
+                                    style="font-size:11px; font-weight:500; color:var(--text-body); text-transform:uppercase; margin-top:4px;">
+                                    Projects</div>
+                            </div>
+                            <div style="width:1px; background:var(--border-subtle);"></div>
+                            <div>
+                                <div style="font-weight:600; font-size:24px; color:var(--brand); line-height:1;">KSU
+                                </div>
+                                <div
+                                    style="font-size:11px; font-weight:500; color:var(--text-body); text-transform:uppercase; margin-top:4px;">
+                                    University</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        style="display:flex; flex-direction:column; align-items:center; gap:24px; order:-1; md:order:1;">
+                        <div
+                            style="width:200px; height:200px; border:1px solid var(--brand); border-radius:4px; display:flex; align-items:center; justify-content:center; background:var(--brand-soft); position:relative;">
+                            <svg width="48" height="48" viewBox="0 0 64 64" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="32" cy="22" r="14" stroke="var(--brand)" stroke-width="2" />
+                                <path d="M8 58c0-13.255 10.745-24 24-24s24 10.745 24 24" stroke="var(--brand)"
+                                    stroke-width="2" stroke-linecap="square" />
+                            </svg>
+                            <div style="position:absolute; bottom:8px; right:8px; font-size:11px; color:var(--brand);">
+                                user.img</div>
+                        </div>
+                        <div
+                            style="border:1px solid var(--border-subtle); border-radius:4px; padding:6px 12px; display:flex; align-items:center; gap:8px;">
+                            <span style="width:8px; height:8px; background:var(--brand); display:block;"></span>
+                            <span style="font-size:12px; font-weight:500; text-transform:uppercase;">Status:
+                                Available</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="matrix-divider"></div>
+
+        <!-- ══════════ ABOUT — with terminal chrome ══════════ -->
+        <section id="about">
+            <div style="margin-bottom:32px;">
+                <div
+                    style="color:var(--brand); font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">
+                    [ DIR: ~/About_Me ]</div>
+                <h2>Studying systems,<br />building things.</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                <div class="card terminal-chrome" style="padding:0;">
+                    <div style="padding:20px;">
+                        <p style="margin-bottom:16px;">
+                            I'm <strong style="color:var(--brand);">Youssef</strong>, a Software Engineering student at
+                            <strong style="color:var(--brand);">King Saud University</strong>. I spend most of my time
+                            thinking about code, systems, and how to build things that actually work.
+                        </p>
+                        <p style="margin-bottom:24px;">
+                            My interests sit at the intersection of <strong style="color:var(--brand);">web
+                                development</strong> (HTML, CSS, JavaScript), <strong
+                                style="color:var(--brand);">mathematics</strong>, and creative <strong
+                                style="color:var(--brand);">problem-solving</strong>.
+                        </p>
+                        <a href="#" target="_blank" rel="noopener"
+                            style="color:var(--brand); font-weight:500; text-decoration:underline; display:inline-block; margin-bottom:0;">
+                            > ./view_resume.sh
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <div
+                        style="color:var(--text-heading); font-size:14px; font-weight:600; margin-bottom:16px; border-bottom:1px solid var(--border-subtle); padding-bottom:8px;">
+                        Active Processes (Skills)</div>
+                    <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                        <span class="tag-pill">HTML / CSS</span>
+                        <span class="tag-pill">JavaScript</span>
+                        <span class="tag-pill">Python</span>
+                        <span class="tag-pill">Mathematics</span>
+                        <span class="tag-pill">Algorithms</span>
+                        <span class="tag-pill">Problem Solving</span>
+                        <span class="tag-pill" style="border-style: dashed;">
+                            React
+                            <svg class="animate-spin" width="12" height="12" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                </path>
+                            </svg>
+                        </span>
+                        <span class="tag-pill" style="border-style: dashed;">
+                            Next.js
+                            <svg class="animate-spin" width="12" height="12" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                </path>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="matrix-divider"></div>
+
+        <!-- ══════════ PROJECTS — cards with terminal chrome ══════════ -->
+        <section id="projects">
+            <div
+                style="display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:48px;">
+                <div>
+                    <div
+                        style="color:var(--brand); font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">
+                        [ DIR: ~/Projects ]</div>
+                    <h2>What I Build</h2>
+                </div>
+                <a href="https://github.com" target="_blank" rel="noopener" class="btn"
+                    style="padding:6px 12px; font-size:12px;">
+                    > cd /github
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="card terminal-chrome">
+                    <div
+                        style="height:140px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(56, 157, 198, 0.05) 2px, rgba(56, 157, 198, 0.05) 4px);">
+                        <div style="font-size:24px; color:var(--brand);">&lt; Portfolio /&gt;</div>
+                        <div
+                            style="position:absolute; top:8px; right:8px; border:1px solid var(--border-subtle); padding:2px 6px; font-size:10px; color:var(--brand);">
+                            Web Dev</div>
+                    </div>
+                    <div style="padding:20px; display:flex; flex-direction:column; flex:1;">
+                        <h3 style="font-size:18px; margin-bottom:8px;">Personal Portfolio</h3>
+                        <p style="font-size:14px; margin-bottom:16px; flex:1;">A clean, responsive portfolio website
+                            with a minimalist dark terminal theme, built with semantic HTML, CSS, and vanilla
+                            JavaScript.</p>
+                        <div style="display:flex; gap:6px; margin-bottom:16px; flex-wrap:wrap;">
+                            <span class="tag-pill" style="font-size:11px; padding:2px 6px;">HTML</span>
+                            <span class="tag-pill" style="font-size:11px; padding:2px 6px;">CSS</span>
+                            <span class="tag-pill" style="font-size:11px; padding:2px 6px;">JavaScript</span>
+                        </div>
+                        <div style="display:flex; gap:8px;">
+                            <a href="#" class="btn" style="padding:6px 10px; font-size:12px;">GitHub</a>
+                            <a href="#" class="btn"
+                                style="padding:6px 10px; font-size:12px; background:transparent; border-color:var(--border-subtle); color:var(--text-body);">Live</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card terminal-chrome">
+                    <div
+                        style="height:140px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(56, 157, 198, 0.05) 2px, rgba(56, 157, 198, 0.05) 4px);">
+                        <div style="font-size:24px; color:var(--brand);">[ O(log n) ]</div>
+                        <div
+                            style="position:absolute; top:8px; right:8px; border:1px solid var(--border-subtle); padding:2px 6px; font-size:10px; color:var(--brand);">
+                            Algorithm</div>
+                    </div>
+                    <div style="padding:20px; display:flex; flex-direction:column; flex:1;">
+                        <h3 style="font-size:18px; margin-bottom:8px;">Algorithm Visualizer</h3>
+                        <p style="font-size:14px; margin-bottom:16px; flex:1;">An interactive tool that visualizes
+                            sorting and graph traversal algorithms in real-time. Supports BFS, DFS, bubble sort, and
+                            merge sort.</p>
+                        <div style="display:flex; gap:6px; margin-bottom:16px; flex-wrap:wrap;">
+                            <span class="tag-pill" style="font-size:11px; padding:2px 6px;">Python</span>
+                            <span class="tag-pill" style="font-size:11px; padding:2px 6px;">JavaScript</span>
+                            <span class="tag-pill" style="font-size:11px; padding:2px 6px;">Canvas API</span>
+                        </div>
+                        <div style="display:flex; gap:8px;">
+                            <a href="#" class="btn" style="padding:6px 10px; font-size:12px;">GitHub</a>
+                            <a href="#" class="btn"
+                                style="padding:6px 10px; font-size:12px; background:transparent; border-color:var(--border-subtle); color:var(--text-body);">Demo</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card terminal-chrome">
+                    <div
+                        style="height:140px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(56, 157, 198, 0.05) 2px, rgba(56, 157, 198, 0.05) 4px);">
+                        <div style="font-size:24px; color:var(--brand);">{ Task }</div>
+                        <div
+                            style="position:absolute; top:8px; right:8px; border:1px solid var(--border-subtle); padding:2px 6px; font-size:10px; color:var(--brand);">
+                            Full Stack</div>
+                    </div>
+                    <div style="padding:20px; display:flex; flex-direction:column; flex:1;">
+                        <h3 style="font-size:18px; margin-bottom:8px;">Task Manager App</h3>
+                        <p style="font-size:14px; margin-bottom:16px; flex:1;">A full-stack productivity app for
+                            managing tasks with priority levels, deadlines, and progress tracking. Built with a clean
+                            REST API.</p>
+                        <div style="display:flex; gap:6px; margin-bottom:16px; flex-wrap:wrap;">
+                            <span class="tag-pill" style="font-size:11px; padding:2px 6px;">Node.js</span>
+                            <span class="tag-pill" style="font-size:11px; padding:2px 6px;">Express</span>
+                            <span class="tag-pill" style="font-size:11px; padding:2px 6px;">SQLite</span>
+                        </div>
+                        <div style="display:flex; gap:8px;">
+                            <a href="#" class="btn" style="padding:6px 10px; font-size:12px;">GitHub</a>
+                            <a href="#" class="btn"
+                                style="padding:6px 10px; font-size:12px; background:transparent; border-color:var(--border-subtle); color:var(--text-body);">Demo</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <div class="matrix-divider"></div>
+
+        <section id="achievements" style="overflow:hidden;">
+            <div style="text-align:center; margin-bottom:48px;">
+                <div
+                    style="color:var(--brand); font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">
+                    [ DIR: ~/Timeline ]</div>
+                <h2>Achievements & Milestones</h2>
+            </div>
+
+            <div
+                class="carousel-container relative w-full h-[400px] max-w-5xl mx-auto flex items-center justify-center px-12">
+
+                <div class="carousel-card absolute w-full max-w-[280px] sm:max-w-[320px] bg-[#020804] border border-[#163E4F] rounded-[4px] transition-all duration-300 ease-out cursor-pointer flex flex-col overflow-hidden"
+                    data-index="0">
+                    <div
+                        class="h-32 relative w-full lightbox-trigger border-b border-[#163E4F] group bg-[#020804] flex items-center justify-center">
+                        <div class="inner-img text-4xl">📜</div>
+                        <div
+                            class="absolute inset-0 bg-[#020804]/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                            <span class="text-[#389DC6] text-xs font-bold tracking-widest uppercase">EXPAND</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1">
+                        <div class="font-bold text-lg text-[#F5F3EF] mb-1">CS50x Certificate</div>
+                        <div class="text-[11px] text-[#389DC6] mb-3 tracking-widest uppercase">Jan 2025</div>
+                        <p class="text-sm text-[#9C968E] leading-relaxed">Successfully completed Harvard University's
+                            rigorous Introduction to Computer Science, mastering core programming concepts.</p>
+                    </div>
+                </div>
+
+                <div class="carousel-card absolute w-full max-w-[280px] sm:max-w-[320px] bg-[#020804] border border-[#163E4F] rounded-[4px] transition-all duration-300 ease-out cursor-pointer flex flex-col overflow-hidden"
+                    data-index="1">
+                    <div
+                        class="h-32 relative w-full lightbox-trigger border-b border-[#163E4F] group bg-[#020804] flex items-center justify-center">
+                        <div class="inner-img text-4xl">🎤</div>
+                        <div
+                            class="absolute inset-0 bg-[#020804]/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                            <span class="text-[#389DC6] text-xs font-bold tracking-widest uppercase">EXPAND</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1">
+                        <div class="font-bold text-lg text-[#F5F3EF] mb-1">Tech Conference 2025</div>
+                        <div class="text-[11px] text-[#389DC6] mb-3 tracking-widest uppercase">Mar 2025</div>
+                        <p class="text-sm text-[#9C968E] leading-relaxed">Attended the Global Web Developers Conference.
+                            Engaged in workshops and participated in the open-source hackathon.</p>
+                    </div>
+                </div>
+
+                <div class="carousel-card absolute w-full max-w-[280px] sm:max-w-[320px] bg-[#020804] border border-[#163E4F] rounded-[4px] transition-all duration-300 ease-out cursor-pointer flex flex-col overflow-hidden"
+                    data-index="2">
+                    <div
+                        class="h-32 relative w-full lightbox-trigger border-b border-[#163E4F] group bg-[#020804] flex items-center justify-center">
+                        <div class="inner-img text-4xl">🏆</div>
+                        <div
+                            class="absolute inset-0 bg-[#020804]/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                            <span class="text-[#389DC6] text-xs font-bold tracking-widest uppercase">EXPAND</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1">
+                        <div class="font-bold text-lg text-[#F5F3EF] mb-1">Top Performer Award</div>
+                        <div class="text-[11px] text-[#389DC6] mb-3 tracking-widest uppercase">Dec 2024</div>
+                        <p class="text-sm text-[#9C968E] leading-relaxed">Awarded highest honors in the University
+                            Algorithms & Data Structures course out of 150+ students.</p>
+                    </div>
+                </div>
+
+                <div class="carousel-card absolute w-full max-w-[280px] sm:max-w-[320px] bg-[#020804] border border-[#163E4F] rounded-[4px] transition-all duration-300 ease-out cursor-pointer flex flex-col overflow-hidden"
+                    data-index="3">
+                    <div
+                        class="h-32 relative w-full lightbox-trigger border-b border-[#163E4F] group bg-[#020804] flex items-center justify-center">
+                        <div class="inner-img text-4xl">💻</div>
+                        <div
+                            class="absolute inset-0 bg-[#020804]/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                            <span class="text-[#389DC6] text-xs font-bold tracking-widest uppercase">EXPAND</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1">
+                        <div class="font-bold text-lg text-[#F5F3EF] mb-1">100 Days of Code</div>
+                        <div class="text-[11px] text-[#389DC6] mb-3 tracking-widest uppercase">Nov 2024</div>
+                        <p class="text-sm text-[#9C968E] leading-relaxed">Committed to and finished the 100 Days of Code
+                            challenge, focusing specifically on advanced Full Stack Web Development.</p>
+                    </div>
+                </div>
+
+                <button id="carousel-prev"
+                    class="absolute left-0 sm:left-4 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-10 h-10 rounded-full border border-[#163E4F] text-[#389DC6] hover:border-[#389DC6] transition-colors bg-[#020804]"
+                    aria-label="Previous">
+                    &lt;
+                </button>
+
+                <button id="carousel-next"
+                    class="absolute right-0 sm:right-4 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-10 h-10 rounded-full border border-[#163E4F] text-[#389DC6] hover:border-[#389DC6] transition-colors bg-[#020804]"
+                    aria-label="Next">
+                    &gt;
+                </button>
+
+            </div>
+        </section>
+
+        <div class="matrix-divider"></div>
+
+        <section id="courses">
+            <div
+                style="display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:48px;">
+                <div>
+                    <div
+                        style="color:var(--brand); font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">
+                        [ DIR: ~/Teaching ]</div>
+                    <h2>My Courses</h2>
+                </div>
+                <a href="https://www.udemy.com/user/youssef" target="_blank" rel="noopener" class="btn"
+                    style="padding:6px 12px; font-size:12px;">
+                    Udemy Profile
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <a href="https://www.udemy.com/course/complete-web-development-bootcamp" target="_blank" rel="noopener"
+                    class="card terminal-chrome" style="text-decoration:none;">
+                    <div
+                        style="height:120px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(56, 157, 198, 0.05) 2px, rgba(56, 157, 198, 0.05) 4px); font-size:18px; color:var(--brand); position:relative;">
+                        &lt;html&gt;...&lt;/html&gt;
+                        <div
+                            style="position:absolute; top:8px; right:8px; border:1px solid var(--border-subtle); padding:2px 6px; font-size:10px; color:var(--brand);">
+                            Beginner</div>
+                    </div>
+                    <div style="padding:20px; display:flex; flex-direction:column; flex:1;">
+                        <h3 style="font-size:16px; margin-bottom:8px;">Complete Web Development Bootcamp</h3>
+                        <p style="font-size:14px; margin-bottom:16px; flex:1; color:var(--text-body);">Master HTML5,
+                            CSS3, and JavaScript from scratch. Build real-world projects, learn responsive design,
+                            Flexbox, Grid, and modern web standards used in production.</p>
+                        <div
+                            style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border-subtle); padding-top:12px; font-size:11px; color:var(--brand); font-weight:600;">
+                            <span>UDEMY</span>
+                            <span>&rarr;</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://www.udemy.com/course/python-algorithms-and-data-structures" target="_blank"
+                    rel="noopener" class="card terminal-chrome" style="text-decoration:none;">
+                    <div
+                        style="height:120px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(56, 157, 198, 0.05) 2px, rgba(56, 157, 198, 0.05) 4px); font-size:18px; color:var(--brand); position:relative;">
+                        def main():
+                        <div
+                            style="position:absolute; top:8px; right:8px; border:1px solid var(--border-subtle); padding:2px 6px; font-size:10px; color:var(--brand);">
+                            Intermediate</div>
+                    </div>
+                    <div style="padding:20px; display:flex; flex-direction:column; flex:1;">
+                        <h3 style="font-size:16px; margin-bottom:8px;">Python &amp; Data Structures Masterclass</h3>
+                        <p style="font-size:14px; margin-bottom:16px; flex:1; color:var(--text-body);">Deep dive into
+                            Python with algorithms, DSA, complexity analysis, and the problem-solving skills used in
+                            technical interviews at top tech companies.</p>
+                        <div
+                            style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border-subtle); padding-top:12px; font-size:11px; color:var(--brand); font-weight:600;">
+                            <span>UDEMY</span>
+                            <span>&rarr;</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://www.udemy.com/course/math-for-computer-science" target="_blank" rel="noopener"
+                    class="card terminal-chrome" style="text-decoration:none;">
+                    <div
+                        style="height:120px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(56, 157, 198, 0.05) 2px, rgba(56, 157, 198, 0.05) 4px); font-size:18px; color:var(--brand); position:relative;">
+                        f(x) = x^2
+                        <div
+                            style="position:absolute; top:8px; right:8px; border:1px solid var(--border-subtle); padding:2px 6px; font-size:10px; color:var(--brand);">
+                            All Levels</div>
+                    </div>
+                    <div style="padding:20px; display:flex; flex-direction:column; flex:1;">
+                        <h3 style="font-size:16px; margin-bottom:8px;">Mathematics for Computer Science</h3>
+                        <p style="font-size:14px; margin-bottom:16px; flex:1; color:var(--text-body);">A structured
+                            journey through discrete math, linear algebra, probability, and calculus — everything a
+                            software engineer needs to think clearly and solve hard problems.</p>
+                        <div
+                            style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border-subtle); padding-top:12px; font-size:11px; color:var(--brand); font-weight:600;">
+                            <span>UDEMY</span>
+                            <span>&rarr;</span>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+        <div class="matrix-divider"></div>
+
+        <section id="penguins">
+            <div style="text-align:center; margin-bottom:32px;">
+                <div
+                    style="color:var(--brand); font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">
+                    [ TEAM: The_Penguins ]</div>
+                <h2>Hackathon Team</h2>
+            </div>
+
+            <div class="card" style="padding:40px; border-color:var(--brand);">
+                <div class="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-12 items-center">
+                    <div
+                        style="flex-shrink:0; border:1px solid var(--border-subtle); padding:20px; background:var(--bg-dark);">
+                        <svg style="filter: grayscale(1) sepia(1) hue-rotate(150deg) brightness(1.2);" width="120"
+                            height="145" viewBox="0 0 155 188" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <radialGradient id="bg1" cx="50%" cy="30%" r="70%">
+                                    <stop offset="0%" stop-color="#1a3a5c" />
+                                    <stop offset="100%" stop-color="#0a1826" />
+                                </radialGradient>
+                                <radialGradient id="belly1" cx="40%" cy="30%" r="70%">
+                                    <stop offset="0%" stop-color="white" stop-opacity=".7" />
+                                    <stop offset="100%" stop-color="white" stop-opacity="0" />
+                                </radialGradient>
+                                <radialGradient id="eye1" cx="35%" cy="30%" r="70%">
+                                    <stop offset="0%" stop-color="#60a5fa" />
+                                    <stop offset="100%" stop-color="#1e3a6e" />
+                                </radialGradient>
+                                <filter id="glow1">
+                                    <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
+                                    <feMerge>
+                                        <feMergeNode in="coloredBlur" />
+                                        <feMergeNode in="SourceGraphic" />
+                                    </feMerge>
+                                </filter>
+                                <linearGradient id="scarf1" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#2dd4bf" />
+                                    <stop offset="50%" stop-color="#5eead4" />
+                                    <stop offset="100%" stop-color="#2dd4bf" />
+                                </linearGradient>
+                            </defs>
+                            <ellipse cx="77" cy="182" rx="40" ry="5.5" fill="rgba(0,0,0,.25)" />
+                            <ellipse cx="77" cy="178" rx="48" ry="9" fill="rgba(200,235,255,.06)"
+                                stroke="rgba(147,210,255,.12)" stroke-width="1" />
+                            <ellipse cx="77" cy="116" rx="44" ry="55" fill="url(#bg1)" />
+                            <ellipse cx="63" cy="78" rx="20" ry="15" fill="rgba(100,180,255,.08)"
+                                filter="url(#glow1)" />
+                            <ellipse cx="77" cy="122" rx="27" ry="40" fill="#daeeff" opacity=".93" />
+                            <ellipse cx="72" cy="108" rx="18" ry="25" fill="url(#belly1)" opacity=".4" />
+                            <path d="M33 97 Q14 108 16 132 Q19 152 35 156 Q40 132 42 106 Z" fill="url(#bg1)" />
+                            <path d="M33 97 Q16 120 18 144" stroke="rgba(100,180,255,.18)" stroke-width="2"
+                                stroke-linecap="round" fill="none" />
+                            <path d="M121 97 Q140 108 138 132 Q135 152 119 156 Q114 132 112 106 Z" fill="url(#bg1)" />
+                            <path d="M121 97 Q138 120 136 144" stroke="rgba(100,180,255,.18)" stroke-width="2"
+                                stroke-linecap="round" fill="none" />
+                            <circle cx="77" cy="55" r="35" fill="url(#bg1)" />
+                            <ellipse cx="64" cy="34" rx="13" ry="10" fill="rgba(100,180,255,.1)" filter="url(#glow1)" />
+                            <ellipse cx="77" cy="61" rx="22" ry="18" fill="#daeeff" opacity=".88" />
+                            <circle cx="65" cy="51" r="11" fill="white" />
+                            <circle cx="89" cy="51" r="11" fill="white" />
+                            <circle cx="65" cy="51" r="7.5" fill="url(#eye1)" />
+                            <circle cx="89" cy="51" r="7.5" fill="url(#eye1)" />
+                            <circle cx="66" cy="52" r="4.5" fill="#091628" />
+                            <circle cx="90" cy="52" r="4.5" fill="#091628" />
+                            <circle cx="68" cy="49" r="2" fill="white" opacity=".95" />
+                            <circle cx="92" cy="49" r="2" fill="white" opacity=".95" />
+                            <circle cx="65" cy="54" r="1.2" fill="white" opacity=".5" />
+                            <circle cx="89" cy="54" r="1.2" fill="white" opacity=".5" />
+                            <path d="M55 40 Q65 36 74 39" stroke="#0a1c34" stroke-width="2.8" stroke-linecap="round"
+                                fill="none" />
+                            <path d="M80 39 Q89 36 99 40" stroke="#0a1c34" stroke-width="2.8" stroke-linecap="round"
+                                fill="none" />
+                            <path d="M70 68 Q77 77 84 68 Q81 62 77 61 Q73 62 70 68Z" fill="#f6a623" />
+                            <line x1="70" y1="68" x2="84" y2="68" stroke="rgba(0,0,0,.14)" stroke-width="1.2" />
+                            <ellipse cx="55" cy="64" rx="8" ry="5.5" fill="rgba(255,120,120,.22)" />
+                            <ellipse cx="99" cy="64" rx="8" ry="5.5" fill="rgba(255,120,120,.22)" />
+                            <path d="M33 86 Q77 93 121 86 Q121 97 77 101 Q33 97 33 86Z" fill="url(#scarf1)"
+                                opacity=".9" />
+                            <path d="M69 99 L69 118 Q77 122 85 118 L85 99 Z" fill="#2dd4bf" opacity=".85" />
+                            <path d="M33 91 Q77 98 121 91" stroke="rgba(255,255,255,.2)" stroke-width="1.2"
+                                fill="none" />
+                            <circle cx="50" cy="91" r="1.5" fill="rgba(255,255,255,.3)" />
+                            <circle cx="104" cy="91" r="1.5" fill="rgba(255,255,255,.3)" />
+                            <path d="M57 175 Q46 170 42 175 Q44 181 53 181 Q62 181 64 175 Z" fill="#f6a623" />
+                            <path d="M97 175 Q108 170 112 175 Q110 181 101 181 Q92 181 90 175 Z" fill="#f6a623" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div
+                            style="font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--brand); margin-bottom:12px;">
+                            Hackathon Team &middot; KSU</div>
+                        <p style="margin-bottom:24px; line-height:1.8;">
+                            We show up, we build fast, and we don't give up. Collaborative, focused, and always ready to
+                            ship under pressure. Much like penguins thriving where most wouldn't dare go.
+                        </p>
+                        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px;">
+                            <span class="tag-pill">Hackathon Ready</span>
+                            <span class="tag-pill">Build Fast</span>
+                            <span class="tag-pill">Team First</span>
+                        </div>
+                        <div
+                            style="font-size:11px; text-transform:uppercase; color:var(--border-subtle); border-top:1px solid var(--border-subtle); padding-top:12px;">
+                            Est. at King Saud University
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="matrix-divider"></div>
+
+        <section id="media">
+            <div style="margin-bottom:48px;">
+                <div
+                    style="color:var(--brand); font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">
+                    [ DIR: ~/Personal_Log ]</div>
+                <h2>Movies & Shows</h2>
+            </div>
+
+            <div
+                style="margin-bottom:24px; color:var(--brand); font-size:12px; border-bottom:1px solid var(--border-subtle); padding-bottom:8px;">
+                [ TOP_PICKS ]</div>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-12">
+                <div class="card p-3" style="text-align:center;">
+                    <div style="font-size:32px; margin-bottom:8px; color:var(--text-heading);">[M]</div>
+                    <div style="font-weight:600; color:var(--text-heading); font-size:12px;">MCU</div>
+                    <div style="font-size:10px; color:var(--brand);">9.2/10</div>
+                </div>
+                <div class="card p-3" style="text-align:center;">
+                    <div style="font-size:32px; margin-bottom:8px; color:var(--text-heading);">[B]</div>
+                    <div style="font-weight:600; color:var(--text-heading); font-size:12px;">Breaking Bad</div>
+                    <div style="font-size:10px; color:var(--brand);">9.5/10</div>
+                </div>
+                <div class="card p-3" style="text-align:center;">
+                    <div style="font-size:32px; margin-bottom:8px; color:var(--text-heading);">[I]</div>
+                    <div style="font-weight:600; color:var(--text-heading); font-size:12px;">Interstellar</div>
+                    <div style="font-size:10px; color:var(--brand);">8.6/10</div>
+                </div>
+                <div class="card p-3" style="text-align:center;">
+                    <div style="font-size:32px; margin-bottom:8px; color:var(--text-heading);">[O]</div>
+                    <div style="font-weight:600; color:var(--text-heading); font-size:12px;">The Office</div>
+                    <div style="font-size:10px; color:var(--brand);">9.0/10</div>
+                </div>
+                <div class="card p-3" style="text-align:center;">
+                    <div style="font-size:32px; margin-bottom:8px; color:var(--text-heading);">[D]</div>
+                    <div style="font-weight:600; color:var(--text-heading); font-size:12px;">Dark</div>
+                    <div style="font-size:10px; color:var(--brand);">8.8/10</div>
+                </div>
+            </div>
+
+            <div
+                style="margin-bottom:24px; color:var(--brand); font-size:12px; border-bottom:1px solid var(--border-subtle); padding-bottom:8px;">
+                [ RECENTLY_WATCHED ]</div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="card p-4 flex flex-row justify-between items-center">
+                    <div>
+                        <div style="font-weight:600; color:var(--text-heading); font-size:14px;">Avengers: Endgame</div>
+                        <div style="font-size:12px;">Action · Marvel</div>
+                    </div>
+                    <div style="color:var(--brand); font-size:12px;">[ 8.4 ]</div>
+                </div>
+                <div class="card p-4 flex flex-row justify-between items-center">
+                    <div>
+                        <div style="font-weight:600; color:var(--text-heading); font-size:14px;">Sherlock</div>
+                        <div style="font-size:12px;">Mystery · BBC</div>
+                    </div>
+                    <div style="color:var(--brand); font-size:12px;">[ 9.1 ]</div>
+                </div>
+                <div class="card p-4 flex flex-row justify-between items-center">
+                    <div>
+                        <div style="font-weight:600; color:var(--text-heading); font-size:14px;">Better Call Saul</div>
+                        <div style="font-size:12px;">Drama · AMC</div>
+                    </div>
+                    <div style="color:var(--brand); font-size:12px;">[ 8.9 ]</div>
+                </div>
+                <div class="card p-4 flex flex-row justify-between items-center">
+                    <div>
+                        <div style="font-weight:600; color:var(--text-heading); font-size:14px;">Black Mirror</div>
+                        <div style="font-size:12px;">Sci-Fi · Netflix</div>
+                    </div>
+                    <div style="color:var(--brand); font-size:12px;">[ 8.8 ]</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="matrix-divider"></div>
+
+        <!-- ══════════ CONTACT — with terminal chrome on form card ══════════ -->
+        <section id="contact">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+                <div>
+                    <div
+                        style="color:var(--brand); font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">
+                        [ DIR: ~/Contact ]</div>
+                    <h2 style="margin-bottom:16px;">Let's talk.</h2>
+                    <p style="margin-bottom:32px;">Whether it's a project, a question, or just a hello — my inbox is
+                        open.</p>
+
+                    <div style="display:flex; gap:16px; margin-bottom:32px;">
+                        <a href="https://github.com" target="_blank" rel="noopener" class="btn"
+                            style="padding:8px; border-color:var(--border-subtle); background:transparent;">[ GitHub
+                            ]</a>
+                        <a href="https://linkedin.com" target="_blank" rel="noopener" class="btn"
+                            style="padding:8px; border-color:var(--border-subtle); background:transparent;">[ LinkedIn
+                            ]</a>
+                    </div>
+
+                    <div
+                        style="display:inline-flex; align-items:center; gap:8px; padding:6px 12px; border:1px solid var(--border-subtle); border-radius:4px;">
+                        <span style="width:8px; height:8px; background:var(--brand); display:block;"></span>
+                        <span
+                            style="font-size:12px; font-weight:500; text-transform:uppercase; color:var(--brand);">Open
+                            to opportunities</span>
+                    </div>
+                </div>
+
+                <div class="card terminal-chrome p-6" style="border-color:var(--brand);">
+                    <form id="cf" onsubmit="submitForm(event)" class="flex flex-col gap-4">
+                        <div>
+                            <label
+                                style="display:block; font-size:12px; font-weight:500; color:var(--text-heading); margin-bottom:6px;">>
+                                NAME</label>
+                            <input type="text" id="senderName" class="inp" placeholder="Enter your name" required />
+                        </div>
+                        <div>
+                            <label
+                                style="display:block; font-size:12px; font-weight:500; color:var(--text-heading); margin-bottom:6px;">>
+                                MESSAGE</label>
+                            <textarea id="senderMessage" class="inp" rows="4" placeholder="Enter message payload"
+                                required style="resize:none;"></textarea>
+                        </div>
+                        <button type="submit" class="btn" style="justify-content:center; margin-top:8px;">
+                            Execute Send
+                        </button>
+                        <div id="cf-ok"
+                            style="display:none; text-align:center; font-size:12px; color:var(--brand); padding:8px 0;">
+                            > Opening mail client...
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <footer
+            style="border-top:1px dashed var(--border-default); padding:32px 16px; background-color:var(--bg-dark);">
+            <div
+                style="max-width:1152px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+                <span style="font-weight:700; font-size:16px; color:var(--brand);">> YOUSSEF_</span>
+                <span style="font-size:12px;">© 2025 Youssef · Built with care</span>
+                <a href="#hero" style="font-size:12px; color:var(--brand); text-decoration:none;">[ ^ TOP ]</a>
+            </div>
+        </footer>
+
+    </div>
+
+    <div id="lightbox"
+        class="fixed inset-0 bg-[#020804]/95 hidden items-center justify-center opacity-0 transition-opacity duration-200">
+        <button onclick="closeLightbox()"
+            class="absolute top-6 right-8 text-[#389DC6] text-2xl hover:text-white transition-colors z-[101]">[ X
+            ]</button>
+        <div id="lightbox-content"
+            class="w-[85vw] max-w-4xl aspect-[16/9] sm:aspect-[21/9] rounded-[4px] overflow-hidden border border-[#389DC6] relative flex items-center justify-center bg-[#020804]">
+        </div>
+    </div>
+
+    <script>
+        // Mobile Nav Logic
+        const ham = document.getElementById('ham');
+        const mobileNav = document.getElementById('mobile-nav');
+        ham.addEventListener('click', () => { mobileNav.style.display = mobileNav.style.display === 'block' ? 'none' : 'block'; });
+        function closeNav() { mobileNav.style.display = 'none'; }
+
+        // Navbar Active State Logic
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let cur = '';
+            sections.forEach(s => {
+                if (window.scrollY >= s.offsetTop - 200) {
+                    cur = s.id;
+                }
+            });
+
+            if (Math.ceil(window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 50) {
+                cur = 'contact';
+            }
+
+            navLinks.forEach(a => {
+                if (a.getAttribute('href') === '#' + cur) {
+                    a.classList.add('active');
+                } else {
+                    a.classList.remove('active');
+                }
+            });
+        }, { passive: true });
+
+        // Contact Form Logic
+        function submitForm(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('senderName').value;
+            const message = document.getElementById('senderMessage').value;
+
+            const targetEmail = "youssefammar1742007@gmail.com";
+            const subject = encodeURIComponent("message from " + name);
+            const body = encodeURIComponent(message);
+            const mailtoLink = `mailto:${targetEmail}?subject=${subject}&body=${body}`;
+
+            window.location.href = mailtoLink;
+
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.textContent = '> Initializing Mail Client...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                document.getElementById('cf-ok').style.display = 'block';
+                btn.textContent = 'Execute Send';
+                btn.disabled = false;
+                e.target.reset();
+                setTimeout(() => document.getElementById('cf-ok').style.display = 'none', 4500);
+            }, 1500);
+        }
+
+        // Lightbox Logic
+        function openLightbox(htmlContent) {
+            const lb = document.getElementById('lightbox');
+            document.getElementById('lightbox-content').innerHTML = htmlContent;
+            lb.classList.remove('hidden');
+            lb.classList.add('flex');
+            void lb.offsetWidth; // Force reflow
+            lb.classList.remove('opacity-0');
+            lb.classList.add('opacity-100');
+        }
+
+        function closeLightbox() {
+            const lb = document.getElementById('lightbox');
+            lb.classList.remove('opacity-100');
+            lb.classList.add('opacity-0');
+            setTimeout(() => {
+                lb.classList.add('hidden');
+                lb.classList.remove('flex');
+            }, 200);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // Carousel Logic
+        document.addEventListener("DOMContentLoaded", function () {
+            const cCards = document.querySelectorAll('.carousel-card');
+            const totalCards = cCards.length;
+            let currIndex = 0;
+
+            function updateCarousel() {
+                cCards.forEach((card, index) => {
+                    card.className = 'carousel-card absolute w-full max-w-[280px] sm:max-w-[320px] bg-[#020804] border border-[#163E4F] rounded-[4px] transition-all duration-300 ease-out cursor-pointer flex flex-col overflow-hidden';
+
+                    if (index === currIndex) {
+                        card.classList.add('left-1/2', 'top-1/2', '-translate-x-1/2', '-translate-y-1/2', 'scale-100', 'opacity-100', 'z-10');
+                        card.style.borderColor = '#389DC6';
+                    } else if (index === (currIndex - 1 + totalCards) % totalCards) {
+                        card.classList.add('left-[15%]', 'sm:left-[20%]', 'top-1/2', '-translate-x-1/2', '-translate-y-1/2', 'scale-90', 'opacity-50', 'z-0');
+                    } else if (index === (currIndex + 1) % totalCards) {
+                        card.classList.add('left-[85%]', 'sm:left-[80%]', 'top-1/2', '-translate-x-1/2', '-translate-y-1/2', 'scale-90', 'opacity-50', 'z-0');
+                    } else {
+                        card.classList.add('left-1/2', 'top-1/2', '-translate-x-1/2', '-translate-y-1/2', 'scale-50', 'opacity-0', 'z-[-1]', 'pointer-events-none');
+                    }
+                });
+            }
+
+            if (totalCards > 0) {
+                document.getElementById('carousel-next').addEventListener('click', () => {
+                    currIndex = (currIndex + 1) % totalCards;
+                    updateCarousel();
+                });
+
+                document.getElementById('carousel-prev').addEventListener('click', () => {
+                    currIndex = (currIndex - 1 + totalCards) % totalCards;
+                    updateCarousel();
+                });
+
+                cCards.forEach((card, index) => {
+                    const imgTrigger = card.querySelector('.lightbox-trigger');
+                    if (imgTrigger) {
+                        imgTrigger.addEventListener('click', (e) => {
+                            if (currIndex === index) {
+                                e.stopPropagation();
+                                const innerImgHtml = imgTrigger.querySelector('.inner-img').outerHTML;
+                                openLightbox(innerImgHtml);
+                            }
+                        });
+                    }
+
+                    card.addEventListener('click', () => {
+                        if (currIndex !== index) {
+                            currIndex = index;
+                            updateCarousel();
+                        }
+                    });
+                });
+
+                updateCarousel();
+            }
+        });
+    </script>
+</body>
+
+</html>
