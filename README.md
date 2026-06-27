@@ -2,13 +2,15 @@
 
 > A modern, terminal-inspired personal portfolio. Built to showcase projects, skills, and academic milestones with a clean, high-performance Matrix/Terminal aesthetic.
 
-[![Live Demo](https://img.shields.io/badge/Live_Preview-Website-blue?style=for-the-badge&logo=vercel)]()
+[![Live Demo](https://img.shields.io/badge/Live_Preview-Website-blue?style=for-the-badge&logo=vercel)](https://portfolio-jmrmkzipw-youssefammar1742007-8524s-projects.vercel.app/)
 [![Fedora](https://img.shields.io/badge/Fedora-382629?style=for-the-badge&logo=fedora&logoColor=white)]()
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)]()
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)]()
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)]()
 
 ## 🌐 Live Website
+
+![Youssef Almghraby Portfolio](https://portfolio-jmrmkzipw-youssefammar1742007-8524s-projects.vercel.app/)
 
 ---
 
