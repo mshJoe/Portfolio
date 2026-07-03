@@ -63,7 +63,7 @@
                 <div class="flex flex-col items-center gap-6 shrink-0">
                     <div
                         style="width:200px; height:200px; border:1px solid var(--brand); border-radius:4px; display:flex; align-items:center; justify-content:center; background:var(--brand-soft); position:relative;">
-                        <img src="Imgs/User_img.png" alt="Youssef"
+                        <img src="Imgs/User_img.png" alt="Profile Picture of Youssef Ammar"
                             style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;" />
                         <div style="position:absolute; bottom:8px; right:8px; font-size:11px; color:var(--brand);">
                             user.img</div>
@@ -256,11 +256,10 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
                 <div class="card terminal-chrome">
-                    <div
-                        style="height:140px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(56, 157, 198, 0.05) 2px, rgba(56, 157, 198, 0.05) 4px);">
-                        <div style="font-size:24px; color:var(--brand);">&lt; Portfolio /&gt;</div>
+                    <div class="project-img-container" style="height:140px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
+                        <img src="Imgs/Project1.png" alt="Personal Portfolio Project Cover" class="project-img w-full h-full object-cover">
                         <div
-                            style="position:absolute; top:8px; right:8px; border:1px solid var(--border-subtle); padding:2px 6px; font-size:10px; color:var(--brand);">
+                            style="position:absolute; top:8px; right:8px; border:1px solid var(--border-subtle); padding:2px 6px; font-size:10px; color:var(--brand); background: var(--bg-dark);">
                             Web Dev</div>
                     </div>
                     <div style="padding:20px; display:flex; flex-direction:column; flex:1;">
@@ -270,7 +269,7 @@
                             JavaScript.</p>
                         <div style="display:flex; gap:6px; margin-bottom:16px; flex-wrap:wrap;">
                             <span class="tag-pill" style="font-size:11px; padding:2px 6px;">HTML</span>
-                            <span class="tag-pill" style="font-size:11px; padding:2px 6px;">CSS</span>
+                            <span class="tag-pill" style="font-size:11px; padding:2px 6px;">Tailwind CSS</span>
                             <span class="tag-pill" style="font-size:11px; padding:2px 6px;">JavaScript</span>
                         </div>
                         <div style="display:flex; gap:8px;">
@@ -284,52 +283,46 @@
                 </div>
 
                 <div class="card terminal-chrome">
-                    <div
-                        style="height:140px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(56, 157, 198, 0.05) 2px, rgba(56, 157, 198, 0.05) 4px);">
-                        <div style="font-size:24px; color:var(--brand);">[ O(log n) ]</div>
+                    <div class="project-img-container" style="height:140px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
+                        <img src="Imgs/Project2.png" alt="KSU Specialization Calculator Project Cover" class="project-img w-full h-full object-cover">
                         <div
-                            style="position:absolute; top:8px; right:8px; border:1px solid var(--border-subtle); padding:2px 6px; font-size:10px; color:var(--brand);">
-                            Algorithm</div>
+                            style="position:absolute; top:8px; right:8px; border:1px solid var(--border-subtle); padding:2px 6px; font-size:10px; color:var(--brand); background: var(--bg-dark);">
+                            Web Dev</div>
                     </div>
                     <div style="padding:20px; display:flex; flex-direction:column; flex:1;">
-                        <h3 style="font-size:18px; margin-bottom:8px;">Algorithm Visualizer</h3>
-                        <p style="font-size:14px; margin-bottom:16px; flex:1;">An interactive tool that visualizes
-                            sorting and graph traversal algorithms in real-time. Supports BFS, DFS, bubble sort, and
-                            merge sort.</p>
+                        <h3 style="font-size:18px; margin-bottom:8px;">KSU Specialization Calculator</h3>
+                        <p style="font-size:14px; margin-bottom:16px; flex:1;">A modern, bilingual web application designed to help King Saud University (KSU) students seamlessly calculate their allocation scores and discover their eligible majors.</p>
                         <div style="display:flex; gap:6px; margin-bottom:16px; flex-wrap:wrap;">
-                            <span class="tag-pill" style="font-size:11px; padding:2px 6px;">Python</span>
+                            <span class="tag-pill" style="font-size:11px; padding:2px 6px;">HTML</span>
+                            <span class="tag-pill" style="font-size:11px; padding:2px 6px;">Tailwind CSS</span>
                             <span class="tag-pill" style="font-size:11px; padding:2px 6px;">JavaScript</span>
-                            <span class="tag-pill" style="font-size:11px; padding:2px 6px;">Canvas API</span>
                         </div>
                         <div style="display:flex; gap:8px;">
-                            <a href="#" class="btn" style="padding:6px 10px; font-size:12px;">GitHub</a>
-                            <a href="#" class="btn"
+                            <a href="https://github.com/mshJoe/KSU-Specialization-calculator" target="_blank" rel="noopener" class="btn" style="padding:6px 10px; font-size:12px;">GitHub</a>
+                            <a href="https://ksuspecialization.dev/" target="_blank" class="btn"
                                 style="padding:6px 10px; font-size:12px; background:transparent; border-color:var(--border-subtle); color:var(--text-body);">Demo</a>
                         </div>
                     </div>
                 </div>
 
                 <div class="card terminal-chrome">
-                    <div
-                        style="height:140px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(56, 157, 198, 0.05) 2px, rgba(56, 157, 198, 0.05) 4px);">
-                        <div style="font-size:24px; color:var(--brand);">{ Task }</div>
+                    <div class="project-img-container" style="height:140px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
+                        <img src="Imgs/Project3.png" alt="Basira Dashboard Project Cover" class="project-img w-full h-full object-cover">
                         <div
-                            style="position:absolute; top:8px; right:8px; border:1px solid var(--border-subtle); padding:2px 6px; font-size:10px; color:var(--brand);">
-                            Full Stack</div>
+                            style="position:absolute; top:8px; right:8px; border:1px solid var(--border-subtle); padding:2px 6px; font-size:10px; color:var(--brand); background: var(--bg-dark);">
+                            Web Dev</div>
                     </div>
                     <div style="padding:20px; display:flex; flex-direction:column; flex:1;">
-                        <h3 style="font-size:18px; margin-bottom:8px;">Task Manager App</h3>
-                        <p style="font-size:14px; margin-bottom:16px; flex:1;">A full-stack productivity app for
-                            managing tasks with priority levels, deadlines, and progress tracking. Built with a clean
-                            REST API.</p>
+                        <h3 style="font-size:18px; margin-bottom:8px;">Basira - بصيرة</h3>
+                        <p style="font-size:14px; margin-bottom:16px; flex:1;">A modern, high-performance dashboard web application built to deliver a seamless user experience and intuitive UI for the Amd Hackathon.</p>
                         <div style="display:flex; gap:6px; margin-bottom:16px; flex-wrap:wrap;">
-                            <span class="tag-pill" style="font-size:11px; padding:2px 6px;">Node.js</span>
-                            <span class="tag-pill" style="font-size:11px; padding:2px 6px;">Express</span>
-                            <span class="tag-pill" style="font-size:11px; padding:2px 6px;">SQLite</span>
+                            <span class="tag-pill" style="font-size:11px; padding:2px 6px;">React.js</span>
+                            <span class="tag-pill" style="font-size:11px; padding:2px 6px;">Tailwind CSS</span>
+                            <span class="tag-pill" style="font-size:11px; padding:2px 6px;">Vite</span>
                         </div>
                         <div style="display:flex; gap:8px;">
-                            <a href="#" class="btn" style="padding:6px 10px; font-size:12px;">GitHub</a>
-                            <a href="#" class="btn"
+                            <a href="https://github.com/mshJoe/Basira" target="_blank" class="btn" style="padding:6px 10px; font-size:12px;">GitHub</a>
+                            <a href="https://basira-kappa.vercel.app/" target="_blank" class="btn"
                                 style="padding:6px 10px; font-size:12px; background:transparent; border-color:var(--border-subtle); color:var(--text-body);">Demo</a>
                         </div>
                     </div>
@@ -354,72 +347,52 @@
                 <div class="carousel-card absolute w-full max-w-[280px] sm:max-w-[320px] bg-[#020804] border border-[#163E4F] rounded-[4px] transition-all duration-300 ease-out cursor-pointer flex flex-col overflow-hidden"
                     data-index="0">
                     <div
-                        class="h-32 relative w-full lightbox-trigger border-b border-[#163E4F] group bg-[#020804] flex items-center justify-center">
-                        <div class="inner-img text-4xl">📜</div>
+                        class="h-36 relative w-full lightbox-trigger border-b border-[#163E4F] group bg-[#020804] flex items-center justify-center overflow-hidden">
+                        <img src="Imgs/Cer2.png" alt="Claude 101 Course Completion Certificate" class="cert-img w-full h-full object-cover">
                         <div
                             class="absolute inset-0 bg-[#020804]/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                             <span class="text-[#389DC6] text-xs font-bold tracking-widest uppercase">EXPAND</span>
                         </div>
                     </div>
                     <div class="p-6 flex-1">
-                        <div class="font-bold text-lg text-[#F5F3EF] mb-1">CS50x Certificate</div>
-                        <div class="text-[11px] text-[#389DC6] mb-3 tracking-widest uppercase">Jan 2025</div>
-                        <p class="text-sm text-[#9C968E] leading-relaxed">Successfully completed Harvard University's
-                            rigorous Introduction to Computer Science, mastering core programming concepts.</p>
+                        <div class="font-bold text-lg text-[#F5F3EF] mb-1">Claude 101 Certificate</div>
+                        <div class="text-[11px] text-[#389DC6] mb-3 tracking-widest uppercase">April 18, 2026</div>
+                        <p class="text-sm text-[#9C968E] leading-relaxed mb-4">Successfully completed Claude 101 course, mastering core AI concepts.</p>
+                        <a href="https://verify.skilljar.com/c/23kzwbxavsw2" target="_blank" rel="noopener noreferrer" class="verify-btn">[ CREDENTIAL ]</a>
                     </div>
                 </div>
 
                 <div class="carousel-card absolute w-full max-w-[280px] sm:max-w-[320px] bg-[#020804] border border-[#163E4F] rounded-[4px] transition-all duration-300 ease-out cursor-pointer flex flex-col overflow-hidden"
                     data-index="1">
                     <div
-                        class="h-32 relative w-full lightbox-trigger border-b border-[#163E4F] group bg-[#020804] flex items-center justify-center">
-                        <div class="inner-img text-4xl">🎤</div>
+                        class="h-36 relative w-full lightbox-trigger border-b border-[#163E4F] group bg-[#020804] flex items-center justify-center overflow-hidden">
+                        <img src="Imgs/Cer3.png" alt="Volunteering at King Salman Oasis Experience" class="cert-img w-full h-full object-cover">
                         <div
                             class="absolute inset-0 bg-[#020804]/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                             <span class="text-[#389DC6] text-xs font-bold tracking-widest uppercase">EXPAND</span>
                         </div>
                     </div>
                     <div class="p-6 flex-1">
-                        <div class="font-bold text-lg text-[#F5F3EF] mb-1">Tech Conference 2025</div>
-                        <div class="text-[11px] text-[#389DC6] mb-3 tracking-widest uppercase">Mar 2025</div>
-                        <p class="text-sm text-[#9C968E] leading-relaxed">Attended the Global Web Developers Conference.
-                            Engaged in workshops and participated in the open-source hackathon.</p>
+                        <div class="font-bold text-lg text-[#F5F3EF] mb-1">Volenteering at King Salman Oasis</div>
+                        <div class="text-[11px] text-[#389DC6] mb-3 tracking-widest uppercase">Dec 21, 2024</div>
+                        <p class="text-sm text-[#9C968E] leading-relaxed">Volenteered at King Salman Oasis, contributing to its success and engaging with visitors and participants.</p>
                     </div>
                 </div>
 
                 <div class="carousel-card absolute w-full max-w-[280px] sm:max-w-[320px] bg-[#020804] border border-[#163E4F] rounded-[4px] transition-all duration-300 ease-out cursor-pointer flex flex-col overflow-hidden"
                     data-index="2">
                     <div
-                        class="h-32 relative w-full lightbox-trigger border-b border-[#163E4F] group bg-[#020804] flex items-center justify-center">
-                        <div class="inner-img text-4xl">🏆</div>
+                        class="h-36 relative w-full lightbox-trigger border-b border-[#163E4F] group bg-[#020804] flex items-center justify-center overflow-hidden">
+                        <img src="Imgs/Cer1.png" alt="TEDx KSU Event Participation" class="cert-img w-full h-full object-cover">
                         <div
                             class="absolute inset-0 bg-[#020804]/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                             <span class="text-[#389DC6] text-xs font-bold tracking-widest uppercase">EXPAND</span>
                         </div>
                     </div>
                     <div class="p-6 flex-1">
-                        <div class="font-bold text-lg text-[#F5F3EF] mb-1">Top Performer Award</div>
-                        <div class="text-[11px] text-[#389DC6] mb-3 tracking-widest uppercase">Dec 2024</div>
-                        <p class="text-sm text-[#9C968E] leading-relaxed">Awarded highest honors in the University
-                            Algorithms & Data Structures course out of 150+ students.</p>
-                    </div>
-                </div>
-
-                <div class="carousel-card absolute w-full max-w-[280px] sm:max-w-[320px] bg-[#020804] border border-[#163E4F] rounded-[4px] transition-all duration-300 ease-out cursor-pointer flex flex-col overflow-hidden"
-                    data-index="3">
-                    <div
-                        class="h-32 relative w-full lightbox-trigger border-b border-[#163E4F] group bg-[#020804] flex items-center justify-center">
-                        <div class="inner-img text-4xl">💻</div>
-                        <div
-                            class="absolute inset-0 bg-[#020804]/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                            <span class="text-[#389DC6] text-xs font-bold tracking-widest uppercase">EXPAND</span>
-                        </div>
-                    </div>
-                    <div class="p-6 flex-1">
-                        <div class="font-bold text-lg text-[#F5F3EF] mb-1">100 Days of Code</div>
-                        <div class="text-[11px] text-[#389DC6] mb-3 tracking-widest uppercase">Nov 2024</div>
-                        <p class="text-sm text-[#9C968E] leading-relaxed">Committed to and finished the 100 Days of Code
-                            challenge, focusing specifically on advanced Full Stack Web Development.</p>
+                        <div class="font-bold text-lg text-[#F5F3EF] mb-1">TEDx KSU Event</div>
+                        <div class="text-[11px] text-[#389DC6] mb-3 tracking-widest uppercase">May 16, 2026</div>
+                        <p class="text-sm text-[#9C968E] leading-relaxed">An inspiring TEDx event. Engaged with top influential minds across Saudi Arabia, absorbing powerful ideas and gaining new perspectives for the future.</p>
                     </div>
                 </div>
 
@@ -457,17 +430,16 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                <a href="https://www.udemy.com/course/programming-fundmentals/?couponCode=KEEPLEARNING" target="_blank"
-                    rel="noopener" class="card terminal-chrome" style="text-decoration:none;">
-                    <div
-                        style="height:120px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(56, 157, 198, 0.05) 2px, rgba(56, 157, 198, 0.05) 4px); font-size:18px; color:var(--brand); position:relative;">
-                        &lt;html&gt;...&lt;/html&gt;
+                <a href="https://www.udemy.com/course/programming-fundmentals/?referralCode=F70D5271C6DFE85EC727" target="_blank"
+                    rel="noopener" class="card terminal-chrome group" style="text-decoration:none;">
+                    <div class="course-img-container" style="height:160px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
+                        <img src="Imgs/Course1.png" alt="Programming Fundamentals with Python Course Cover" class="grayscale transition-all duration-300 group-hover:grayscale-0 w-full h-full object-cover">
                         <div
-                            style="position:absolute; top:8px; right:8px; border:1px solid var(--border-subtle); padding:2px 6px; font-size:10px; color:var(--brand);">
+                            style="position:absolute; top:8px; right:8px; border:1px solid var(--border-subtle); padding:2px 6px; font-size:10px; color:var(--brand); background: var(--bg-dark);">
                             Beginner</div>
                     </div>
                     <div style="padding:20px; display:flex; flex-direction:column; flex:1;">
-                        <h3 style="font-size:16px; margin-bottom:8px;">Programming Fundmentals Using Python</h3>
+                        <h3 style="font-size:16px; margin-bottom:8px;">Programming Fundamentals with Python</h3>
                         <p style="font-size:14px; margin-bottom:16px; flex:1; color:var(--text-body);">Master the
                             fundamentals of programming step-by-step, covering variables, conditions, loops, and
                             functions in a friendly way.</p>
@@ -479,20 +451,17 @@
                     </div>
                 </a>
 
-                <a href="https://www.udemy.com/course/python-algorithms-and-data-structures" target="_blank"
-                    rel="noopener" class="card terminal-chrome" style="text-decoration:none;">
-                    <div
-                        style="height:120px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(56, 157, 198, 0.05) 2px, rgba(56, 157, 198, 0.05) 4px); font-size:18px; color:var(--brand); position:relative;">
-                        def main():
+                <a href="#" target="_blank"
+                    rel="noopener" class="card terminal-chrome group" style="text-decoration:none;">
+                    <div class="course-img-container" style="height:160px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
+                        <img src="Imgs/Course2.png" alt="Front-end Fundamentals Course Cover" class="grayscale transition-all duration-300 group-hover:grayscale-0 w-full h-full object-cover">
                         <div
-                            style="position:absolute; top:8px; right:8px; border:1px solid var(--border-subtle); padding:2px 6px; font-size:10px; color:var(--brand);">
+                            style="position:absolute; top:8px; right:8px; border:1px solid var(--border-subtle); padding:2px 6px; font-size:10px; color:var(--brand); background: var(--bg-dark);">
                             Intermediate</div>
                     </div>
                     <div style="padding:20px; display:flex; flex-direction:column; flex:1;">
-                        <h3 style="font-size:16px; margin-bottom:8px;">Python &amp; Data Structures Masterclass</h3>
-                        <p style="font-size:14px; margin-bottom:16px; flex:1; color:var(--text-body);">Deep dive into
-                            Python with algorithms, DSA, complexity analysis, and the problem-solving skills used in
-                            technical interviews at top tech companies.</p>
+                        <h3 style="font-size:16px; margin-bottom:8px;">Front-end Fundamentals</h3>
+                        <p style="font-size:14px; margin-bottom:16px; flex:1; color:var(--text-body);">Master the building blocks of the web. Learn HTML semantics and modern CSS styling to build responsive, interactive, and user-friendly interfaces from scratch.</p>
                         <div
                             style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border-subtle); padding-top:12px; font-size:11px; color:var(--brand); font-weight:600;">
                             <span>UDEMY</span>
@@ -501,20 +470,17 @@
                     </div>
                 </a>
 
-                <a href="https://www.udemy.com/course/math-for-computer-science" target="_blank" rel="noopener"
-                    class="card terminal-chrome" style="text-decoration:none;">
-                    <div
-                        style="height:120px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(56, 157, 198, 0.05) 2px, rgba(56, 157, 198, 0.05) 4px); font-size:18px; color:var(--brand); position:relative;">
-                        f(x) = x^2
+                <a href="#" target="_blank" rel="noopener"
+                    class="card terminal-chrome group" style="text-decoration:none;">
+                    <div class="course-img-container" style="height:160px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
+                        <img src="Imgs/Course3.png" alt="AI Fundamentals Course Cover" class="grayscale transition-all duration-300 group-hover:grayscale-0 w-full h-full object-cover">
                         <div
-                            style="position:absolute; top:8px; right:8px; border:1px solid var(--border-subtle); padding:2px 6px; font-size:10px; color:var(--brand);">
+                            style="position:absolute; top:8px; right:8px; border:1px solid var(--border-subtle); padding:2px 6px; font-size:10px; color:var(--brand); background: var(--bg-dark);">
                             All Levels</div>
                     </div>
                     <div style="padding:20px; display:flex; flex-direction:column; flex:1;">
-                        <h3 style="font-size:16px; margin-bottom:8px;">Mathematics for Computer Science</h3>
-                        <p style="font-size:14px; margin-bottom:16px; flex:1; color:var(--text-body);">A structured
-                            journey through discrete math, linear algebra, probability, and calculus — everything a
-                            software engineer needs to think clearly and solve hard problems.</p>
+                        <h3 style="font-size:16px; margin-bottom:8px;">AI Fundamentals</h3>
+                        <p style="font-size:14px; margin-bottom:16px; flex:1; color:var(--text-body);">Master the core concepts of Artificial Intelligence step-by-step, covering prompt engineering, Large Language Models (LLMs), and Retrieval-Augmented Generation (RAG).</p>
                         <div
                             style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border-subtle); padding-top:12px; font-size:11px; color:var(--brand); font-weight:600;">
                             <span>UDEMY</span>
@@ -540,7 +506,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-12 items-center">
                     <div class="mx-auto md:mx-0"
                         style="flex-shrink:0; border:1px solid var(--border-subtle); background:var(--bg-dark); width: 140px; height: 140px; border-radius: 4px; overflow: hidden;">
-                        <img src="Imgs/Penguins team.jpeg" alt="The Penguins Team" class="w-full h-full object-cover" />
+                        <img src="Imgs/Penguins team.jpeg" alt="The Penguins Hackathon Team Photo" class="w-full h-full object-cover" />
                     </div>
                     <div>
                         <div
@@ -595,31 +561,31 @@
                 [ TOP_PICKS ]</div>
             <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-12">
                 <div class="card p-3" style="text-align:center;">
-                    <img src="Imgs/Game of thrones.jpg" alt="Game of Thrones"
+                    <img src="Imgs/Game of thrones.jpg" alt="Game of Thrones TV Show Poster"
                         class="w-full aspect-[2/3] object-cover rounded-[4px] mb-2" />
                     <div style="font-weight:600; color:var(--text-heading); font-size:12px;">Game of Thrones</div>
                     <div style="font-size:10px; color:var(--brand);">10/10</div>
                 </div>
                 <div class="card p-3" style="text-align:center;">
-                    <img src="Imgs/La casa de papel.jpg" alt="La Casa de Papel"
+                    <img src="Imgs/La casa de papel.jpg" alt="La Casa de Papel TV Show Poster"
                         class="w-full aspect-[2/3] object-cover rounded-[4px] mb-2" />
                     <div style="font-weight:600; color:var(--text-heading); font-size:12px;">La Casa de Papel</div>
                     <div style="font-size:10px; color:var(--brand);">10/10</div>
                 </div>
                 <div class="card p-3" style="text-align:center;">
-                    <img src="Imgs/Inception.jpg" alt="Inception"
+                    <img src="Imgs/Inception.jpg" alt="Inception Movie Poster"
                         class="w-full aspect-[2/3] object-cover rounded-[4px] mb-2" />
                     <div style="font-weight:600; color:var(--text-heading); font-size:12px;">Inception</div>
                     <div style="font-size:10px; color:var(--brand);">9.5/10</div>
                 </div>
                 <div class="card p-3" style="text-align:center;">
-                    <img src="Imgs/Infinity war.jpg" alt="Infinity War"
+                    <img src="Imgs/Infinity war.jpg" alt="Avengers Infinity War Movie Poster"
                         class="w-full aspect-[2/3] object-cover rounded-[4px] mb-2" />
                     <div style="font-weight:600; color:var(--text-heading); font-size:12px;">Infinity War</div>
                     <div style="font-size:10px; color:var(--brand);">9.5/10</div>
                 </div>
                 <div class="card p-3" style="text-align:center;">
-                    <img src="Imgs/Interstellar.jpg" alt="Interstellar"
+                    <img src="Imgs/Interstellar.jpg" alt="Interstellar Movie Poster"
                         class="w-full aspect-[2/3] object-cover rounded-[4px] mb-2" />
                     <div style="font-weight:600; color:var(--text-heading); font-size:12px;">Interstellar</div>
                     <div style="font-size:10px; color:var(--brand);">9.5/10</div>

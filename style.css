@@ -72,7 +72,7 @@ h1 {
 }
 
 h2 {
-    font-size: clamp(24px, 4vw, 36px);
+    font-size: clamp(32px, 5vw, 48px);
     line-height: 1.15;
 }
 
@@ -189,8 +189,15 @@ section {
 
 /* ── Blinking Cursor Animation ── */
 @keyframes blink-cursor {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
 }
 
 .cursor-blink {
@@ -273,4 +280,43 @@ section {
 /* Lightbox */
 #lightbox {
     z-index: 100;
+}
+
+/* Project Images */
+.project-img {
+    filter: grayscale(80%) opacity(70%);
+    transition: filter 300ms ease;
+}
+
+.card:hover .project-img {
+    filter: grayscale(0%) opacity(100%);
+}
+
+/* Certificate Images */
+.cert-img {
+    filter: grayscale(80%) opacity(70%);
+    transition: all 0.3s ease;
+}
+
+.carousel-card:hover .cert-img {
+    filter: grayscale(0%) opacity(100%);
+}
+
+/* Verify Button */
+.verify-btn {
+    display: inline-block;
+    padding: 4px 8px;
+    font-size: 11px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--brand);
+    background: transparent;
+    border: 1px solid var(--brand);
+    border-radius: 2px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.verify-btn:hover {
+    background: var(--brand);
+    color: #020804;
 }

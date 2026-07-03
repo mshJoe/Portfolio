@@ -121,8 +121,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 imgTrigger.addEventListener('click', (e) => {
                     if (currIndex === index) {
                         e.stopPropagation();
-                        const innerImgHtml = imgTrigger.querySelector('.inner-img').outerHTML;
-                        openLightbox(innerImgHtml);
+                        const imgElement = imgTrigger.querySelector('img');
+                        if (imgElement) {
+                            const extractedImgSrc = imgElement.getAttribute('src');
+                            const htmlContent = `<img src="${extractedImgSrc}" alt="Expanded View" style="width: 100%; height: 100%; object-fit: contain;">`;
+                            openLightbox(htmlContent);
+                        }
                     }
                 });
             }
