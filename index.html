@@ -25,22 +25,35 @@
             <div
                 style="max-width:1152px; margin:0 auto; padding:16px; display:flex; align-items:center; justify-content:space-between;">
                 <a href="#hero" style="font-weight:700; font-size:18px; color:var(--brand); text-decoration:none;">>
-                    YOUSSEF_</a>
-                <ul style="list-style:none; gap:24px;" class="hidden md:flex">
-                    <li><a href="#about" class="nav-link">~/About</a></li>
-                    <li><a href="#projects" class="nav-link">~/Projects</a></li>
-                    <li><a href="#achievements" class="nav-link">~/Milestones</a></li>
-                    <li><a href="#courses" class="nav-link">~/Courses</a></li>
-                    <li><a href="#penguins" class="nav-link">~/Penguins</a></li>
-                    <li><a href="#media" class="nav-link">~/Media</a></li>
-                    <li><a href="#contact" class="nav-link">~/Contact</a></li>
-                </ul>
-                <button id="ham" aria-label="Menu" class="block md:hidden"
-                    style="background:none; border:none; cursor:pointer; color:var(--brand); padding:4px;">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" />
-                    </svg>
-                </button>
+                    YOUSSEF_<span class="cursor-blink">█</span></a>
+                
+                <div style="display:flex; align-items:center; gap:24px;">
+                    <ul style="list-style:none; gap:24px;" class="hidden md:flex">
+                        <li><a href="#about" class="nav-link">~/About</a></li>
+                        <li><a href="#projects" class="nav-link">~/Projects</a></li>
+                        <li><a href="#achievements" class="nav-link">~/Milestones</a></li>
+                        <li><a href="#courses" class="nav-link">~/Courses</a></li>
+                        <li><a href="#penguins" class="nav-link">~/Penguins</a></li>
+                        <li><a href="#media" class="nav-link">~/Media</a></li>
+                        <li><a href="#contact" class="nav-link">~/Contact</a></li>
+                    </ul>
+                    
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <button id="terminal-btn" class="btn flex items-center gap-2" style="padding:6px 12px; font-size:12px;" aria-label="Open terminal">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="4 17 10 11 4 5"></polyline>
+                                <line x1="12" y1="19" x2="20" y2="19"></line>
+                            </svg>
+                            <span class="hidden sm:inline">Terminal</span>
+                        </button>
+                        <button id="ham" aria-label="Menu" class="block md:hidden"
+                            style="background:none; border:none; cursor:pointer; color:var(--brand); padding:4px;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
             </div>
             <div id="mobile-nav" style="display:none; border-top:1px dashed var(--border-subtle); padding:16px;">
                 <ul style="list-style:none; display:flex; flex-direction:column; gap:16px;">
@@ -256,8 +269,10 @@
             <div class="projects-scroll">
 
                 <div class="card terminal-chrome">
-                    <div class="project-img-container" style="height:140px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
-                        <img src="Imgs/Project1.png" alt="Personal Portfolio Project Cover" class="project-img w-full h-full object-cover">
+                    <div class="project-img-container"
+                        style="height:140px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
+                        <img src="Imgs/Project1.png" alt="Personal Portfolio Project Cover"
+                            class="project-img w-full h-full object-cover">
                         <div
                             style="position:absolute; top:8px; right:8px; border:1px solid var(--border-subtle); padding:2px 6px; font-size:10px; color:var(--brand); background: var(--bg-dark);">
                             Web Dev</div>
@@ -283,22 +298,27 @@
                 </div>
 
                 <div class="card terminal-chrome">
-                    <div class="project-img-container" style="height:140px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
-                        <img src="Imgs/Project2.png" alt="KSU Specialization Calculator Project Cover" class="project-img w-full h-full object-cover">
+                    <div class="project-img-container"
+                        style="height:140px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
+                        <img src="Imgs/Project2.png" alt="KSU Specialization Calculator Project Cover"
+                            class="project-img w-full h-full object-cover">
                         <div
                             style="position:absolute; top:8px; right:8px; border:1px solid var(--border-subtle); padding:2px 6px; font-size:10px; color:var(--brand); background: var(--bg-dark);">
                             Web Dev</div>
                     </div>
                     <div style="padding:20px; display:flex; flex-direction:column; flex:1;">
                         <h3 style="font-size:18px; margin-bottom:8px;">KSU Specialization Calculator</h3>
-                        <p style="font-size:14px; margin-bottom:16px; flex:1;">A modern, bilingual web application designed to help King Saud University (KSU) students seamlessly calculate their allocation scores and discover their eligible majors.</p>
+                        <p style="font-size:14px; margin-bottom:16px; flex:1;">A modern, bilingual web application
+                            designed to help King Saud University (KSU) students seamlessly calculate their allocation
+                            scores and discover their eligible majors.</p>
                         <div style="display:flex; gap:6px; margin-bottom:16px; flex-wrap:wrap;">
                             <span class="tag-pill" style="font-size:11px; padding:2px 6px;">HTML</span>
                             <span class="tag-pill" style="font-size:11px; padding:2px 6px;">Tailwind CSS</span>
                             <span class="tag-pill" style="font-size:11px; padding:2px 6px;">JavaScript</span>
                         </div>
                         <div style="display:flex; gap:8px;">
-                            <a href="https://github.com/mshJoe/KSU-Specialization-calculator" target="_blank" rel="noopener" class="btn" style="padding:6px 10px; font-size:12px;">GitHub</a>
+                            <a href="https://github.com/mshJoe/KSU-Specialization-calculator" target="_blank"
+                                rel="noopener" class="btn" style="padding:6px 10px; font-size:12px;">GitHub</a>
                             <a href="https://ksuspecialization.dev/" target="_blank" class="btn"
                                 style="padding:6px 10px; font-size:12px; background:transparent; border-color:var(--border-subtle); color:var(--text-body);">Demo</a>
                         </div>
@@ -306,22 +326,27 @@
                 </div>
 
                 <div class="card terminal-chrome">
-                    <div class="project-img-container" style="height:140px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
-                        <img src="Imgs/Project3.png" alt="Basira Dashboard Project Cover" class="project-img w-full h-full object-cover">
+                    <div class="project-img-container"
+                        style="height:140px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
+                        <img src="Imgs/Project3.png" alt="Basira Dashboard Project Cover"
+                            class="project-img w-full h-full object-cover">
                         <div
                             style="position:absolute; top:8px; right:8px; border:1px solid var(--border-subtle); padding:2px 6px; font-size:10px; color:var(--brand); background: var(--bg-dark);">
                             Web Dev</div>
                     </div>
                     <div style="padding:20px; display:flex; flex-direction:column; flex:1;">
                         <h3 style="font-size:18px; margin-bottom:8px;">Basira - بصيرة</h3>
-                        <p style="font-size:14px; margin-bottom:16px; flex:1;">A modern, high-performance dashboard web application built to deliver a seamless user experience and intuitive UI for the Amd Hackathon.</p>
+                        <p style="font-size:14px; margin-bottom:16px; flex:1;">A modern, high-performance dashboard web
+                            application built to deliver a seamless user experience and intuitive UI for the Amd
+                            Hackathon.</p>
                         <div style="display:flex; gap:6px; margin-bottom:16px; flex-wrap:wrap;">
                             <span class="tag-pill" style="font-size:11px; padding:2px 6px;">React.js</span>
                             <span class="tag-pill" style="font-size:11px; padding:2px 6px;">Tailwind CSS</span>
                             <span class="tag-pill" style="font-size:11px; padding:2px 6px;">Vite</span>
                         </div>
                         <div style="display:flex; gap:8px;">
-                            <a href="https://github.com/mshJoe/Basira" target="_blank" class="btn" style="padding:6px 10px; font-size:12px;">GitHub</a>
+                            <a href="https://github.com/mshJoe/Basira" target="_blank" class="btn"
+                                style="padding:6px 10px; font-size:12px;">GitHub</a>
                             <a href="https://basira-kappa.vercel.app/" target="_blank" class="btn"
                                 style="padding:6px 10px; font-size:12px; background:transparent; border-color:var(--border-subtle); color:var(--text-body);">Demo</a>
                         </div>
@@ -329,22 +354,27 @@
                 </div>
 
                 <div class="card terminal-chrome">
-                    <div class="project-img-container" style="height:140px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
-                        <img src="Imgs/Project4.png" alt="Arcadia Personal Media Vault Project Cover" class="project-img w-full h-full object-cover">
+                    <div class="project-img-container"
+                        style="height:140px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
+                        <img src="Imgs/Project4.png" alt="Arcadia Personal Media Vault Project Cover"
+                            class="project-img w-full h-full object-cover">
                         <div
                             style="position:absolute; top:8px; right:8px; border:1px solid var(--border-subtle); padding:2px 6px; font-size:10px; color:var(--brand); background: var(--bg-dark);">
                             Desktop App</div>
                     </div>
                     <div style="padding:20px; display:flex; flex-direction:column; flex:1;">
                         <h3 style="font-size:18px; margin-bottom:8px;">Arcadia</h3>
-                        <p style="font-size:14px; margin-bottom:16px; flex:1;">A personal media vault desktop app that organizes your local movie and TV library with auto-fetched posters, ratings, and metadata from TMDB.</p>
+                        <p style="font-size:14px; margin-bottom:16px; flex:1;">A personal media vault desktop app that
+                            organizes your local movie and TV library with auto-fetched posters, ratings, and metadata
+                            from TMDB.</p>
                         <div style="display:flex; gap:6px; margin-bottom:16px; flex-wrap:wrap;">
                             <span class="tag-pill" style="font-size:11px; padding:2px 6px;">Tauri</span>
                             <span class="tag-pill" style="font-size:11px; padding:2px 6px;">React</span>
                             <span class="tag-pill" style="font-size:11px; padding:2px 6px;">Rust</span>
                         </div>
                         <div style="display:flex; gap:8px;">
-                            <a href="https://github.com/mshJoe/Arcadia/" class="btn" target="_blank" style="padding:6px 10px; font-size:12px;">GitHub</a>
+                            <a href="https://github.com/mshJoe/Arcadia/" class="btn" target="_blank"
+                                style="padding:6px 10px; font-size:12px;">GitHub</a>
                         </div>
                     </div>
                 </div>
@@ -369,7 +399,8 @@
                     data-index="0">
                     <div
                         class="h-36 relative w-full lightbox-trigger border-b border-[#163E4F] group bg-[#020804] flex items-center justify-center overflow-hidden">
-                        <img src="Imgs/Cer2.png" alt="Claude 101 Course Completion Certificate" class="cert-img w-full h-full object-cover">
+                        <img src="Imgs/Cer2.png" alt="Claude 101 Course Completion Certificate"
+                            class="cert-img w-full h-full object-cover">
                         <div
                             class="absolute inset-0 bg-[#020804]/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                             <span class="text-[#389DC6] text-xs font-bold tracking-widest uppercase">EXPAND</span>
@@ -378,8 +409,10 @@
                     <div class="p-6 flex-1">
                         <div class="font-bold text-lg text-[#F5F3EF] mb-1">Claude 101 Certificate</div>
                         <div class="text-[11px] text-[#389DC6] mb-3 tracking-widest uppercase">April 18, 2026</div>
-                        <p class="text-sm text-[#9C968E] leading-relaxed mb-4">Successfully completed Claude 101 course, mastering core AI concepts.</p>
-                        <a href="https://verify.skilljar.com/c/23kzwbxavsw2" target="_blank" rel="noopener noreferrer" class="verify-btn">[ CREDENTIAL ]</a>
+                        <p class="text-sm text-[#9C968E] leading-relaxed mb-4">Successfully completed Claude 101 course,
+                            mastering core AI concepts.</p>
+                        <a href="https://verify.skilljar.com/c/23kzwbxavsw2" target="_blank" rel="noopener noreferrer"
+                            class="verify-btn">[ CREDENTIAL ]</a>
                     </div>
                 </div>
 
@@ -387,7 +420,8 @@
                     data-index="1">
                     <div
                         class="h-36 relative w-full lightbox-trigger border-b border-[#163E4F] group bg-[#020804] flex items-center justify-center overflow-hidden">
-                        <img src="Imgs/Cer3.png" alt="Volunteering at King Salman Oasis Experience" class="cert-img w-full h-full object-cover">
+                        <img src="Imgs/Cer3.png" alt="Volunteering at King Salman Oasis Experience"
+                            class="cert-img w-full h-full object-cover">
                         <div
                             class="absolute inset-0 bg-[#020804]/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                             <span class="text-[#389DC6] text-xs font-bold tracking-widest uppercase">EXPAND</span>
@@ -396,7 +430,8 @@
                     <div class="p-6 flex-1">
                         <div class="font-bold text-lg text-[#F5F3EF] mb-1">Volenteering at King Salman Oasis</div>
                         <div class="text-[11px] text-[#389DC6] mb-3 tracking-widest uppercase">Dec 21, 2024</div>
-                        <p class="text-sm text-[#9C968E] leading-relaxed">Volenteered at King Salman Oasis, contributing to its success and engaging with visitors and participants.</p>
+                        <p class="text-sm text-[#9C968E] leading-relaxed">Volenteered at King Salman Oasis, contributing
+                            to its success and engaging with visitors and participants.</p>
                     </div>
                 </div>
 
@@ -404,7 +439,8 @@
                     data-index="2">
                     <div
                         class="h-36 relative w-full lightbox-trigger border-b border-[#163E4F] group bg-[#020804] flex items-center justify-center overflow-hidden">
-                        <img src="Imgs/Cer1.png" alt="TEDx KSU Event Participation" class="cert-img w-full h-full object-cover">
+                        <img src="Imgs/Cer1.png" alt="TEDx KSU Event Participation"
+                            class="cert-img w-full h-full object-cover">
                         <div
                             class="absolute inset-0 bg-[#020804]/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                             <span class="text-[#389DC6] text-xs font-bold tracking-widest uppercase">EXPAND</span>
@@ -413,8 +449,11 @@
                     <div class="p-6 flex-1">
                         <div class="font-bold text-lg text-[#F5F3EF] mb-1">Python Developer Certificate</div>
                         <div class="text-[11px] text-[#389DC6] mb-3 tracking-widest uppercase">Jul 21, 2026</div>
-                        <p class="text-sm text-[#9C968E] leading-relaxed mb-4">Successfully completed the Python Developer certificate on Sololearn, demonstrating theoretical and practical understanding.</p>
-                        <a href="https://www.sololearn.com/certificates/CC-PT05CKOS" target="_blank" rel="noopener noreferrer" class="verify-btn">[ CREDENTIAL ]</a>
+                        <p class="text-sm text-[#9C968E] leading-relaxed mb-4">Successfully completed the Python
+                            Developer certificate on Sololearn, demonstrating theoretical and practical understanding.
+                        </p>
+                        <a href="https://www.sololearn.com/certificates/CC-PT05CKOS" target="_blank"
+                            rel="noopener noreferrer" class="verify-btn">[ CREDENTIAL ]</a>
                     </div>
                 </div>
 
@@ -422,7 +461,8 @@
                     data-index="3">
                     <div
                         class="h-36 relative w-full lightbox-trigger border-b border-[#163E4F] group bg-[#020804] flex items-center justify-center overflow-hidden">
-                        <img src="Imgs/Cer4.png" alt="Introduction to Cybersecurity Course Completion Certificate" class="cert-img w-full h-full object-cover">
+                        <img src="Imgs/Cer4.png" alt="Introduction to Cybersecurity Course Completion Certificate"
+                            class="cert-img w-full h-full object-cover">
                         <div
                             class="absolute inset-0 bg-[#020804]/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                             <span class="text-[#389DC6] text-xs font-bold tracking-widest uppercase">EXPAND</span>
@@ -431,7 +471,9 @@
                     <div class="p-6 flex-1">
                         <div class="font-bold text-lg text-[#F5F3EF] mb-1">Introduction to Cybersecurity</div>
                         <div class="text-[11px] text-[#389DC6] mb-3 tracking-widest uppercase">Jul 11, 2026</div>
-                        <p class="text-sm text-[#9C968E] leading-relaxed">Successfully completed the Introduction to Cybersecurity course on Satr platform by Tuwaiq Academy, covering fundamental security concepts.</p>
+                        <p class="text-sm text-[#9C968E] leading-relaxed">Successfully completed the Introduction to
+                            Cybersecurity course on Satr platform by Tuwaiq Academy, covering fundamental security
+                            concepts.</p>
                     </div>
                 </div>
 
@@ -439,7 +481,8 @@
                     data-index="4">
                     <div
                         class="h-36 relative w-full lightbox-trigger border-b border-[#163E4F] group bg-[#020804] flex items-center justify-center overflow-hidden">
-                        <img src="Imgs/Cer5.png" alt="Linux 101 Course Completion Certificate" class="cert-img w-full h-full object-cover">
+                        <img src="Imgs/Cer5.png" alt="Linux 101 Course Completion Certificate"
+                            class="cert-img w-full h-full object-cover">
                         <div
                             class="absolute inset-0 bg-[#020804]/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                             <span class="text-[#389DC6] text-xs font-bold tracking-widest uppercase">EXPAND</span>
@@ -448,7 +491,8 @@
                     <div class="p-6 flex-1">
                         <div class="font-bold text-lg text-[#F5F3EF] mb-1">Linux 101</div>
                         <div class="text-[11px] text-[#389DC6] mb-3 tracking-widest uppercase">Jul 12, 2026</div>
-                        <p class="text-sm text-[#9C968E] leading-relaxed">Successfully completed the Linux 101 course on Satr platform by Tuwaiq Academy, mastering essential Linux fundamentals.</p>
+                        <p class="text-sm text-[#9C968E] leading-relaxed">Successfully completed the Linux 101 course on
+                            Satr platform by Tuwaiq Academy, mastering essential Linux fundamentals.</p>
                     </div>
                 </div>
 
@@ -456,7 +500,8 @@
                     data-index="5">
                     <div
                         class="h-36 relative w-full lightbox-trigger border-b border-[#163E4F] group bg-[#020804] flex items-center justify-center overflow-hidden">
-                        <img src="Imgs/Cer6.png" alt="Linux Files and Permissions Course Completion Certificate" class="cert-img w-full h-full object-cover">
+                        <img src="Imgs/Cer6.png" alt="Linux Files and Permissions Course Completion Certificate"
+                            class="cert-img w-full h-full object-cover">
                         <div
                             class="absolute inset-0 bg-[#020804]/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                             <span class="text-[#389DC6] text-xs font-bold tracking-widest uppercase">EXPAND</span>
@@ -465,7 +510,8 @@
                     <div class="p-6 flex-1">
                         <div class="font-bold text-lg text-[#F5F3EF] mb-1">Linux: Files and Permissions</div>
                         <div class="text-[11px] text-[#389DC6] mb-3 tracking-widest uppercase">Jul 12, 2026</div>
-                        <p class="text-sm text-[#9C968E] leading-relaxed">Successfully completed the Linux: Files and Permissions course on Satr platform, learning file management and access control.</p>
+                        <p class="text-sm text-[#9C968E] leading-relaxed">Successfully completed the Linux: Files and
+                            Permissions course on Satr platform, learning file management and access control.</p>
                     </div>
                 </div>
 
@@ -473,7 +519,8 @@
                     data-index="6">
                     <div
                         class="h-36 relative w-full lightbox-trigger border-b border-[#163E4F] group bg-[#020804] flex items-center justify-center overflow-hidden">
-                        <img src="Imgs/Cer7.png" alt="Introduction to Kali Linux Course Completion Certificate" class="cert-img w-full h-full object-cover">
+                        <img src="Imgs/Cer7.png" alt="Introduction to Kali Linux Course Completion Certificate"
+                            class="cert-img w-full h-full object-cover">
                         <div
                             class="absolute inset-0 bg-[#020804]/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                             <span class="text-[#389DC6] text-xs font-bold tracking-widest uppercase">EXPAND</span>
@@ -482,7 +529,8 @@
                     <div class="p-6 flex-1">
                         <div class="font-bold text-lg text-[#F5F3EF] mb-1">Introduction to Kali Linux</div>
                         <div class="text-[11px] text-[#389DC6] mb-3 tracking-widest uppercase">Jul 12, 2026</div>
-                        <p class="text-sm text-[#9C968E] leading-relaxed">Successfully completed the Introduction to Kali Linux course on Satr platform, exploring penetration testing and security tools.</p>
+                        <p class="text-sm text-[#9C968E] leading-relaxed">Successfully completed the Introduction to
+                            Kali Linux course on Satr platform, exploring penetration testing and security tools.</p>
                     </div>
                 </div>
 
@@ -490,7 +538,8 @@
                     data-index="7">
                     <div
                         class="h-36 relative w-full lightbox-trigger border-b border-[#163E4F] group bg-[#020804] flex items-center justify-center overflow-hidden">
-                        <img src="Imgs/Cer8.png" alt="Python Intermediate Course Completion Certificate" class="cert-img w-full h-full object-cover">
+                        <img src="Imgs/Cer8.png" alt="Python Intermediate Course Completion Certificate"
+                            class="cert-img w-full h-full object-cover">
                         <div
                             class="absolute inset-0 bg-[#020804]/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                             <span class="text-[#389DC6] text-xs font-bold tracking-widest uppercase">EXPAND</span>
@@ -499,8 +548,10 @@
                     <div class="p-6 flex-1">
                         <div class="font-bold text-lg text-[#F5F3EF] mb-1">Python Intermediate Certificate</div>
                         <div class="text-[11px] text-[#389DC6] mb-3 tracking-widest uppercase">Jul 22, 2026</div>
-                        <p class="text-sm text-[#9C968E] leading-relaxed mb-4">Successfully completed the Python Intermediate course on Sololearn, demonstrating theoretical and practical understanding.</p>
-                        <a href="https://www.sololearn.com/certificates/CC-RZMJZ6H3" target="_blank" rel="noopener noreferrer" class="verify-btn">[ CREDENTIAL ]</a>
+                        <p class="text-sm text-[#9C968E] leading-relaxed mb-4">Successfully completed the Python
+                            Intermediate course on Sololearn, demonstrating theoretical and practical understanding.</p>
+                        <a href="https://www.sololearn.com/certificates/CC-RZMJZ6H3" target="_blank"
+                            rel="noopener noreferrer" class="verify-btn">[ CREDENTIAL ]</a>
                     </div>
                 </div>
 
@@ -508,7 +559,8 @@
                     data-index="8">
                     <div
                         class="h-36 relative w-full lightbox-trigger border-b border-[#163E4F] group bg-[#020804] flex items-center justify-center overflow-hidden">
-                        <img src="Imgs/Cer9.png" alt="TEDx KSU Attendance Certificate" class="cert-img w-full h-full object-cover">
+                        <img src="Imgs/Cer9.png" alt="TEDx KSU Attendance Certificate"
+                            class="cert-img w-full h-full object-cover">
                         <div
                             class="absolute inset-0 bg-[#020804]/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                             <span class="text-[#389DC6] text-xs font-bold tracking-widest uppercase">EXPAND</span>
@@ -517,7 +569,9 @@
                     <div class="p-6 flex-1">
                         <div class="font-bold text-lg text-[#F5F3EF] mb-1">TEDx KSU Event</div>
                         <div class="text-[11px] text-[#389DC6] mb-3 tracking-widest uppercase">May 16, 2026</div>
-                        <p class="text-sm text-[#9C968E] leading-relaxed">An inspiring TEDx event. Engaged with top influential minds across Saudi Arabia, absorbing powerful ideas and gaining new perspectives for the future.</p>
+                        <p class="text-sm text-[#9C968E] leading-relaxed">An inspiring TEDx event. Engaged with top
+                            influential minds across Saudi Arabia, absorbing powerful ideas and gaining new perspectives
+                            for the future.</p>
                     </div>
                 </div>
 
@@ -555,10 +609,12 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                <a href="https://www.udemy.com/course/programming-fundmentals/?referralCode=F70D5271C6DFE85EC727" target="_blank"
-                    rel="noopener" class="card terminal-chrome group" style="text-decoration:none;">
-                    <div class="course-img-container" style="height:160px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
-                        <img src="Imgs/Course1.png" alt="Programming Fundamentals with Python Course Cover" class="grayscale transition-all duration-300 group-hover:grayscale-0 w-full h-full object-cover">
+                <a href="https://www.udemy.com/course/programming-fundmentals/?referralCode=F70D5271C6DFE85EC727"
+                    target="_blank" rel="noopener" class="card terminal-chrome group" style="text-decoration:none;">
+                    <div class="course-img-container"
+                        style="height:160px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
+                        <img src="Imgs/Course1.png" alt="Programming Fundamentals with Python Course Cover"
+                            class="grayscale transition-all duration-300 group-hover:grayscale-0 w-full h-full object-cover">
                         <div
                             style="position:absolute; top:8px; right:8px; border:1px solid var(--border-subtle); padding:2px 6px; font-size:10px; color:var(--brand); background: var(--bg-dark);">
                             Beginner</div>
@@ -576,17 +632,21 @@
                     </div>
                 </a>
 
-                <a href="#" target="_blank"
-                    rel="noopener" class="card terminal-chrome group" style="text-decoration:none;">
-                    <div class="course-img-container" style="height:160px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
-                        <img src="Imgs/Course2.png" alt="Front-end Fundamentals Course Cover" class="grayscale transition-all duration-300 group-hover:grayscale-0 w-full h-full object-cover">
+                <a href="#" target="_blank" rel="noopener" class="card terminal-chrome group"
+                    style="text-decoration:none;">
+                    <div class="course-img-container"
+                        style="height:160px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
+                        <img src="Imgs/Course2.png" alt="Front-end Fundamentals Course Cover"
+                            class="grayscale transition-all duration-300 group-hover:grayscale-0 w-full h-full object-cover">
                         <div
                             style="position:absolute; top:8px; right:8px; border:1px solid var(--border-subtle); padding:2px 6px; font-size:10px; color:var(--brand); background: var(--bg-dark);">
                             Intermediate</div>
                     </div>
                     <div style="padding:20px; display:flex; flex-direction:column; flex:1;">
                         <h3 style="font-size:16px; margin-bottom:8px;">Front-end Fundamentals</h3>
-                        <p style="font-size:14px; margin-bottom:16px; flex:1; color:var(--text-body);">Master the building blocks of the web. Learn HTML semantics and modern CSS styling to build responsive, interactive, and user-friendly interfaces from scratch.</p>
+                        <p style="font-size:14px; margin-bottom:16px; flex:1; color:var(--text-body);">Master the
+                            building blocks of the web. Learn HTML semantics and modern CSS styling to build responsive,
+                            interactive, and user-friendly interfaces from scratch.</p>
                         <div
                             style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border-subtle); padding-top:12px; font-size:11px; color:var(--brand); font-weight:600;">
                             <span>UDEMY</span>
@@ -595,17 +655,21 @@
                     </div>
                 </a>
 
-                <a href="#" target="_blank" rel="noopener"
-                    class="card terminal-chrome group" style="text-decoration:none;">
-                    <div class="course-img-container" style="height:160px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
-                        <img src="Imgs/Course3.png" alt="AI Fundamentals Course Cover" class="grayscale transition-all duration-300 group-hover:grayscale-0 w-full h-full object-cover">
+                <a href="#" target="_blank" rel="noopener" class="card terminal-chrome group"
+                    style="text-decoration:none;">
+                    <div class="course-img-container"
+                        style="height:160px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
+                        <img src="Imgs/Course3.png" alt="AI Fundamentals Course Cover"
+                            class="grayscale transition-all duration-300 group-hover:grayscale-0 w-full h-full object-cover">
                         <div
                             style="position:absolute; top:8px; right:8px; border:1px solid var(--border-subtle); padding:2px 6px; font-size:10px; color:var(--brand); background: var(--bg-dark);">
                             All Levels</div>
                     </div>
                     <div style="padding:20px; display:flex; flex-direction:column; flex:1;">
                         <h3 style="font-size:16px; margin-bottom:8px;">AI Fundamentals</h3>
-                        <p style="font-size:14px; margin-bottom:16px; flex:1; color:var(--text-body);">Master the core concepts of Artificial Intelligence step-by-step, covering prompt engineering, Large Language Models (LLMs), and Retrieval-Augmented Generation (RAG).</p>
+                        <p style="font-size:14px; margin-bottom:16px; flex:1; color:var(--text-body);">Master the core
+                            concepts of Artificial Intelligence step-by-step, covering prompt engineering, Large
+                            Language Models (LLMs), and Retrieval-Augmented Generation (RAG).</p>
                         <div
                             style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border-subtle); padding-top:12px; font-size:11px; color:var(--brand); font-weight:600;">
                             <span>UDEMY</span>
@@ -630,20 +694,27 @@
             <div class="card" id="penguins-card" style="border-color:var(--brand); overflow:hidden; cursor:pointer;">
                 <!-- Banner Image Area -->
                 <div class="relative w-full h-[180px] md:h-[240px]">
-                    <img src="Imgs/Penguins team.jpeg" alt="The Penguins Hackathon Team Photo" class="w-full h-full object-cover" style="object-position: center 30%; border-radius: 4px 4px 0 0;" />
-                    
+                    <img src="Imgs/Penguins team.jpeg" alt="The Penguins Hackathon Team Photo"
+                        class="w-full h-full object-cover"
+                        style="object-position: center 30%; border-radius: 4px 4px 0 0;" />
+
                     <!-- Dark gradient overlay -->
-                    <div style="position:absolute; inset:0; background: linear-gradient(to top, var(--bg-dark) 0%, rgba(2,8,4,0.75) 40%, rgba(2,8,4,0.1) 100%);"></div>
-                    
+                    <div
+                        style="position:absolute; inset:0; background: linear-gradient(to top, var(--bg-dark) 0%, rgba(2,8,4,0.75) 40%, rgba(2,8,4,0.1) 100%);">
+                    </div>
+
                     <!-- Header row overlaid on banner -->
-                    <div style="position:absolute; bottom:0; left:0; right:0; padding:24px; display:flex; justify-content:space-between; align-items:flex-end;">
+                    <div
+                        style="position:absolute; bottom:0; left:0; right:0; padding:24px; display:flex; justify-content:space-between; align-items:flex-end;">
                         <div
                             style="font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--brand); font-weight:bold;">
                             Hackathon Team &middot; KSU</div>
                         <div style="display:flex; gap:8px; align-items:center;">
-                            <a href="https://discord.gg/JB7aGeBqqu" target="_blank" rel="noopener" class="discord-icon-btn" aria-label="Discord">
+                            <a href="https://discord.gg/JB7aGeBqqu" target="_blank" rel="noopener"
+                                class="discord-icon-btn" aria-label="Discord">
                                 <svg width="20" height="20" viewBox="0 0 640 512" fill="currentColor">
-                                    <path d="M524.5 69.8a1.5 1.5 0 0 0 -.8-.7A485.1 485.1 0 0 0 404.1 32a1.8 1.8 0 0 0 -1.9 .9 337.5 337.5 0 0 0 -14.9 30.6 447.8 447.8 0 0 0 -134.4 0 309.5 309.5 0 0 0 -15.1-30.6 1.9 1.9 0 0 0 -1.9-.9A483.7 483.7 0 0 0 116.1 69.1a1.7 1.7 0 0 0 -.8 .7C39.1 183.7 18.2 294.7 28.4 404.4a2 2 0 0 0 .8 1.4A487.7 487.7 0 0 0 176 479.9a1.9 1.9 0 0 0 2.1-.7A348.2 348.2 0 0 0 208.1 430.4a1.9 1.9 0 0 0 -1-2.6 321.2 321.2 0 0 1 -45.9-21.9 1.9 1.9 0 0 1 -.2-3.1c3.1-2.3 6.2-4.7 9.1-7.1a1.8 1.8 0 0 1 1.9-.3c96.2 43.9 200.4 43.9 295.5 0a1.8 1.8 0 0 1 1.9 .2c2.9 2.4 6 4.9 9.1 7.2a1.9 1.9 0 0 1 -.2 3.1 301.4 301.4 0 0 1 -45.9 21.8 1.9 1.9 0 0 0 -1 2.6 391 391 0 0 0 30 48.8 1.9 1.9 0 0 0 2.1 .7A486 486 0 0 0 610.7 405.7a1.9 1.9 0 0 0 .8-1.4C623.7 277.6 590.9 167.5 524.5 69.8zM222.5 337.6c-29 0-52.8-26.6-52.8-59.2S193.1 219.1 222.5 219.1c29.7 0 53.3 26.8 52.8 59.2C275.3 311 251.9 337.6 222.5 337.6zm195.4 0c-29 0-52.8-26.6-52.8-59.2S388.4 219.1 417.9 219.1c29.7 0 53.3 26.8 52.8 59.2C470.7 311 447.5 337.6 417.9 337.6z" />
+                                    <path
+                                        d="M524.5 69.8a1.5 1.5 0 0 0 -.8-.7A485.1 485.1 0 0 0 404.1 32a1.8 1.8 0 0 0 -1.9 .9 337.5 337.5 0 0 0 -14.9 30.6 447.8 447.8 0 0 0 -134.4 0 309.5 309.5 0 0 0 -15.1-30.6 1.9 1.9 0 0 0 -1.9-.9A483.7 483.7 0 0 0 116.1 69.1a1.7 1.7 0 0 0 -.8 .7C39.1 183.7 18.2 294.7 28.4 404.4a2 2 0 0 0 .8 1.4A487.7 487.7 0 0 0 176 479.9a1.9 1.9 0 0 0 2.1-.7A348.2 348.2 0 0 0 208.1 430.4a1.9 1.9 0 0 0 -1-2.6 321.2 321.2 0 0 1 -45.9-21.9 1.9 1.9 0 0 1 -.2-3.1c3.1-2.3 6.2-4.7 9.1-7.1a1.8 1.8 0 0 1 1.9-.3c96.2 43.9 200.4 43.9 295.5 0a1.8 1.8 0 0 1 1.9 .2c2.9 2.4 6 4.9 9.1 7.2a1.9 1.9 0 0 1 -.2 3.1 301.4 301.4 0 0 1 -45.9 21.8 1.9 1.9 0 0 0 -1 2.6 391 391 0 0 0 30 48.8 1.9 1.9 0 0 0 2.1 .7A486 486 0 0 0 610.7 405.7a1.9 1.9 0 0 0 .8-1.4C623.7 277.6 590.9 167.5 524.5 69.8zM222.5 337.6c-29 0-52.8-26.6-52.8-59.2S193.1 219.1 222.5 219.1c29.7 0 53.3 26.8 52.8 59.2C275.3 311 251.9 337.6 222.5 337.6zm195.4 0c-29 0-52.8-26.6-52.8-59.2S388.4 219.1 417.9 219.1c29.7 0 53.3 26.8 52.8 59.2C470.7 311 447.5 337.6 417.9 337.6z" />
                                 </svg>
                             </a>
                         </div>
@@ -665,27 +736,37 @@
                         style="font-size:11px; text-transform:uppercase; color:var(--border-subtle); border-top:1px solid var(--border-subtle); padding-top:12px; margin-bottom:16px;">
                         Est. at King Saud University
                     </div>
-                    
-                    <div id="penguins-arrow-indicator" style="display:flex; justify-content:center; align-items:center; color:var(--brand); transition: opacity 200ms ease;">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+                    <div id="penguins-arrow-indicator"
+                        style="display:flex; justify-content:center; align-items:center; color:var(--brand); transition: opacity 200ms ease;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="6 9 12 15 18 9"></polyline>
                         </svg>
                     </div>
-                    
+
                     <!-- Expandable Area -->
                     <div class="expandable-wrapper" id="penguins-expandable">
                         <div class="expandable-inner">
                             <div style="margin-top:16px;"></div>
-                            <a href="https://www.linkedin.com/posts/mshjoe_aevaepaeraepaetaewaeuabraepaetaex-aevaepaeraepaetaewaeuabraepaetaex-ugcPost-7484702844277862401-WHlV/?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAEKSowcB9ezoFeWlZA9Bw1aSNvAyUqrX70Q" target="_blank" rel="noopener" class="card terminal-chrome group" style="text-decoration:none; max-width: 380px;">
-                                <div class="course-img-container" style="height:160px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
-                                    <img src="Imgs/Team1.png" alt="Amd Hackathon LinkedIn Post" class="grayscale transition-all duration-300 group-hover:grayscale-0 w-full h-full object-cover">
-                                    <div style="position:absolute; top:8px; right:8px; border:1px solid var(--border-subtle); padding:2px 6px; font-size:10px; color:var(--brand); background: var(--bg-dark);">
+                            <a href="https://www.linkedin.com/posts/mshjoe_aevaepaeraepaetaewaeuabraepaetaex-aevaepaeraepaetaewaeuabraepaetaex-ugcPost-7484702844277862401-WHlV/?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAEKSowcB9ezoFeWlZA9Bw1aSNvAyUqrX70Q"
+                                target="_blank" rel="noopener" class="card terminal-chrome group"
+                                style="text-decoration:none; max-width: 380px;">
+                                <div class="course-img-container"
+                                    style="height:160px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
+                                    <img src="Imgs/Team1.png" alt="Amd Hackathon LinkedIn Post"
+                                        class="grayscale transition-all duration-300 group-hover:grayscale-0 w-full h-full object-cover">
+                                    <div
+                                        style="position:absolute; top:8px; right:8px; border:1px solid var(--border-subtle); padding:2px 6px; font-size:10px; color:var(--brand); background: var(--bg-dark);">
                                         Milestone</div>
                                 </div>
                                 <div style="padding:20px; display:flex; flex-direction:column; flex:1;">
                                     <h3 style="font-size:16px; margin-bottom:8px;">Amd Hackathon Recap</h3>
-                                    <p style="font-size:14px; margin-bottom:16px; flex:1; color:var(--text-body);">Selected among thousands for a Guinness World Record–setting FinTech hackathon by Tuwaiq Academy and Alinma Bank at The Garage.</p>
-                                    <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border-subtle); padding-top:12px; font-size:11px; color:var(--brand); font-weight:600;">
+                                    <p style="font-size:14px; margin-bottom:16px; flex:1; color:var(--text-body);">
+                                        Selected among thousands for a Guinness World Record–setting FinTech hackathon
+                                        by Tuwaiq Academy and Alinma Bank at The Garage.</p>
+                                    <div
+                                        style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border-subtle); padding-top:12px; font-size:11px; color:var(--brand); font-weight:600;">
                                         <span>LINKEDIN</span>
                                         <span>&rarr;</span>
                                     </div>
@@ -881,6 +962,34 @@
             ]</button>
         <div id="lightbox-content"
             class="w-[85vw] max-w-4xl aspect-[16/9] sm:aspect-[21/9] rounded-[4px] overflow-hidden border border-[#389DC6] relative flex items-center justify-center bg-[#020804]">
+        </div>
+    </div>
+
+    <div id="terminal-overlay" class="fixed inset-0 hidden items-center justify-center opacity-0 transition-opacity duration-200" style="background: rgba(2,8,4,0.97); z-index: 200;">
+        <div style="width:min(900px, 92vw); max-height:85vh; display:flex; flex-direction:column; border:1px solid var(--brand); border-radius:4px; background:var(--bg-dark); box-shadow:0 0 30px rgba(56,157,198,0.2); overflow:hidden;">
+            <!-- title bar -->
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:8px 16px; border-bottom:1px solid var(--border-subtle); background:rgba(56,157,198,0.06);">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <span style="width:8px; height:8px; border-radius:50%; background:var(--danger); display:block;"></span>
+                    <span style="width:8px; height:8px; border-radius:50%; background:var(--warning); display:block;"></span>
+                    <span style="width:8px; height:8px; border-radius:50%; background:var(--success); display:block;"></span>
+                    <span style="margin-left:8px; font-size:12px; color:var(--text-body);">youssef@fedora:~</span>
+                </div>
+                <span style="font-size:11px; color:var(--text-body);">Type 'exit' or Press ESC to close</span>
+            </div>
+            <!-- scrollable terminal body -->
+            <div id="terminal-body" style="flex:1; overflow-y:auto; padding:24px; font-size:13px; line-height:1.7;"></div>
+            <!-- input line -->
+            <div style="display:flex; align-items:center; gap:8px; padding:10px 16px; border-top:1px solid var(--border-subtle);">
+                <span style="color:var(--success);">root@fedora</span><span style="color:var(--text-body);">:~$</span>
+                <input id="terminal-input" type="text" autocomplete="off" spellcheck="false"
+                    style="flex:1; background:transparent; border:none; outline:none; color:var(--text-heading); font-family:'IBM Plex Mono', monospace; font-size:13px;" />
+            </div>
+            <!-- status bar -->
+            <div style="display:flex; justify-content:space-between; padding:6px 16px; font-size:10px; color:var(--text-body); border-top:1px solid var(--border-subtle); text-transform:uppercase;">
+                <span>● online | cwd: ~</span>
+                <span>Tab: Autocomplete · ↑↓: History · ESC: Exit</span>
+            </div>
         </div>
     </div>
 
