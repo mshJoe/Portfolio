@@ -277,6 +277,41 @@ section {
     background: var(--brand);
 }
 
+/* Projects Horizontal Scroll */
+.projects-scroll {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 12px;
+}
+
+.projects-scroll > .card {
+    min-width: 300px;
+    max-width: 340px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+}
+
+.projects-scroll::-webkit-scrollbar {
+    height: 4px;
+}
+
+.projects-scroll::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+    border-top: 1px solid var(--border-subtle);
+}
+
+.projects-scroll::-webkit-scrollbar-thumb {
+    background: var(--border-subtle);
+    border-radius: 2px;
+}
+
+.projects-scroll::-webkit-scrollbar-thumb:hover {
+    background: var(--brand);
+}
+
 /* Lightbox */
 #lightbox {
     z-index: 100;
