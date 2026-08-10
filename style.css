@@ -287,7 +287,7 @@ section {
     padding-bottom: 12px;
 }
 
-.projects-scroll > .card {
+.projects-scroll>.card {
     min-width: 300px;
     max-width: 340px;
     flex-shrink: 0;
@@ -354,4 +354,45 @@ section {
 .verify-btn:hover {
     background: var(--brand);
     color: #020804;
+}
+
+/* Penguins Section Toggle */
+#penguins-arrow-indicator {
+    opacity: 0.7;
+}
+
+#penguins-card:hover #penguins-arrow-indicator:not(.hidden-arrow) {
+    opacity: 1;
+}
+
+#penguins-arrow-indicator.hidden-arrow {
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+.discord-icon-btn {
+    color: var(--brand);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 150ms ease;
+    cursor: pointer;
+}
+
+.discord-icon-btn:hover {
+    color: var(--text-heading);
+}
+
+.expandable-wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 300ms ease-out;
+}
+
+.expandable-wrapper.expanded {
+    grid-template-rows: 1fr;
+}
+
+.expandable-inner {
+    overflow: hidden;
 }

@@ -142,3 +142,21 @@ document.addEventListener("DOMContentLoaded", function () {
         updateCarousel();
     }
 });
+
+// Penguins Toggle Logic
+const penguinsCard = document.getElementById('penguins-card');
+if (penguinsCard) {
+    penguinsCard.addEventListener('click', (e) => {
+        if (e.target.closest('a') || e.target.closest('button')) {
+            return;
+        }
+        
+        const expandable = document.getElementById('penguins-expandable');
+        const indicator = document.getElementById('penguins-arrow-indicator');
+        
+        if (expandable && indicator) {
+            expandable.classList.toggle('expanded');
+            indicator.classList.toggle('hidden-arrow');
+        }
+    });
+}
