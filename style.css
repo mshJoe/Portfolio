@@ -396,3 +396,113 @@ section {
 .expandable-inner {
     overflow: hidden;
 }
+
+/* ── Terminal Window: Windowed & Fullscreen ── */
+.terminal-window {
+    width: min(900px, 92vw);
+    max-height: 85vh;
+    border-radius: 4px;
+    transition: width 220ms ease, max-height 220ms ease, height 220ms ease, border-radius 220ms ease;
+}
+
+.terminal-window.terminal-fullscreen {
+    width: 100vw !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    border-radius: 0 !important;
+}
+
+/* ── Terminal Block Logo (voxel/LED-display) ── */
+.block-logo-container {
+    display: flex;
+    justify-content: center;
+    gap: clamp(10px, 2vw, 14px);
+    margin-bottom: 16px;
+    filter: drop-shadow(0 0 8px rgba(56, 157, 198, 0.4));
+}
+
+.block-letter {
+    display: grid;
+    grid-template-columns: repeat(7, clamp(6px, 1.4vw, 11px));
+    grid-template-rows: repeat(9, clamp(6px, 1.4vw, 11px));
+    gap: 2px;
+}
+
+.block-cell {
+    border-radius: 1px;
+    animation: block-flicker 3s ease-in-out infinite alternate;
+}
+
+.block-cell--on {
+    background: var(--brand);
+    box-shadow: 0 0 5px var(--brand);
+}
+
+@keyframes block-flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* ── Terminal Welcome Line ── */
+.terminal-welcome {
+    color: var(--brand);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+/* ── Terminal Output Lines ── */
+.terminal-line {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.terminal-line--bullet {
+    padding-left: 4ch;
+    text-indent: -4ch;
+}
+
+/* ── Terminal Open/Close Transition (CRT Effect) ── */
+/* Terminal window itself starts collapsed to a thin horizontal line */
+#terminal-overlay .terminal-window {
+    transform: scaleY(0.02);
+    opacity: 0;
+    transform-origin: center;
+}
+
+#terminal-overlay.crt-on .terminal-window {
+    animation: crt-power-on 260ms cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+}
+
+@keyframes crt-power-on {
+    0%   { transform: scaleY(0.02); opacity: 0.4; }
+    60%  { transform: scaleY(1.04); opacity: 1; }
+    80%  { transform: scaleY(0.98); }
+    100% { transform: scaleY(1); opacity: 1; }
+}
+
+#terminal-overlay.crt-off .terminal-window {
+    animation: crt-power-off 200ms ease-in forwards;
+}
+
+@keyframes crt-power-off {
+    0%   { transform: scaleY(1); opacity: 1; }
+    40%  { transform: scaleY(1.03); }
+    100% { transform: scaleY(0.02); opacity: 0; }
+}
+
+/* Quick bright flash synced with the collapse/expand, like a CRT electron-beam flicker */
+#crt-flash.flash {
+    animation: crt-flash 260ms ease-out forwards;
+}
+
+@keyframes crt-flash {
+    0%   { opacity: 0; }
+    15%  { opacity: 0.5; }
+    30%  { opacity: 0.05; }
+    45%  { opacity: 0.3; }
+    100% { opacity: 0; }
+}

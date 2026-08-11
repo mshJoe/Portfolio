@@ -1,3 +1,56 @@
+// Hero Typewriter Logic
+document.addEventListener("DOMContentLoaded", () => {
+    const typewriterCmd = document.getElementById('typewriter-command');
+    const heroCursor = document.getElementById('hero-cursor');
+    if (!typewriterCmd || !heroCursor) return;
+
+    const heroCommands = [
+        "./build_web.sh",
+        "./solve_problems.py",
+        "./study_algorithms.sh",
+        "./ship_projects.sh"
+    ];
+
+    let currentCmdIndex = 0;
+    let currentCharIndex = 0;
+    let isDeleting = false;
+
+    function typeLoop() {
+        const currentCmd = heroCommands[currentCmdIndex];
+
+        if (isDeleting) {
+            // Erasing
+            heroCursor.classList.remove('cursor-blink');
+            typewriterCmd.textContent = currentCmd.substring(0, currentCharIndex - 1);
+            currentCharIndex--;
+
+            if (currentCharIndex === 0) {
+                isDeleting = false;
+                currentCmdIndex = (currentCmdIndex + 1) % heroCommands.length;
+                setTimeout(typeLoop, 400); // Pause before typing next
+            } else {
+                setTimeout(typeLoop, 30 + Math.random() * 20); // 30-50ms per char erasing
+            }
+        } else {
+            // Typing
+            heroCursor.classList.remove('cursor-blink');
+            typewriterCmd.textContent = currentCmd.substring(0, currentCharIndex + 1);
+            currentCharIndex++;
+
+            if (currentCharIndex === currentCmd.length) {
+                isDeleting = true;
+                heroCursor.classList.add('cursor-blink');
+                setTimeout(typeLoop, 2000); // Pause when fully typed
+            } else {
+                setTimeout(typeLoop, 50 + Math.random() * 40); // 50-90ms per char typing
+            }
+        }
+    }
+
+    // Start loop after a short initial delay
+    setTimeout(typeLoop, 500);
+});
+
 // Mobile Nav Logic
 const ham = document.getElementById('ham');
 const mobileNav = document.getElementById('mobile-nav');
@@ -204,28 +257,96 @@ const terminalBtn = document.getElementById('terminal-btn');
 const terminalOverlay = document.getElementById('terminal-overlay');
 const terminalInput = document.getElementById('terminal-input');
 const terminalBody = document.getElementById('terminal-body');
+const terminalWindow = document.getElementById('terminal-window');
+const terminalFsBtn = document.getElementById('terminal-fullscreen-btn');
+const fsExpandIcon = document.getElementById('fs-expand-icon');
+const fsCompressIcon = document.getElementById('fs-compress-icon');
+const crtFlash = document.getElementById('crt-flash');
 
-function openTerminal() {
-    terminalOverlay.classList.remove('hidden');
-    terminalOverlay.classList.add('flex');
-    void terminalOverlay.offsetWidth; // force reflow
-    terminalOverlay.classList.remove('opacity-0');
-    terminalOverlay.classList.add('opacity-100');
-    
-    if (terminalBody.innerHTML === '') {
-        runBootSequence();
+// ── Terminal State & Transitions ──
+let isTerminalTransitioning = false;
+let terminalIsFullscreen = false;
+
+function toggleTerminalFullscreen() {
+    terminalIsFullscreen = !terminalIsFullscreen;
+    if (terminalIsFullscreen) {
+        terminalWindow.classList.add('terminal-fullscreen');
+        fsExpandIcon.style.display = 'none';
+        fsCompressIcon.style.display = '';
     } else {
-        setTimeout(() => terminalInput.focus(), 200);
+        terminalWindow.classList.remove('terminal-fullscreen');
+        fsExpandIcon.style.display = '';
+        fsCompressIcon.style.display = 'none';
     }
 }
 
-function closeTerminal() {
-    terminalOverlay.classList.remove('opacity-100');
-    terminalOverlay.classList.add('opacity-0');
+if (terminalFsBtn) {
+    terminalFsBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleTerminalFullscreen();
+    });
+}
+
+function openTerminal() {
+    if (isTerminalTransitioning || !terminalOverlay.classList.contains('hidden')) return;
+    isTerminalTransitioning = true;
+
+    // Show overlay background instantly
+    terminalOverlay.classList.remove('hidden');
+    terminalOverlay.classList.add('flex');
+    terminalOverlay.classList.remove('opacity-0');
+    terminalOverlay.classList.add('opacity-100');
+    
+    // Reset and trigger CRT animations
+    terminalOverlay.classList.remove('crt-off');
+    crtFlash.classList.remove('flash');
+    void crtFlash.offsetWidth; // force reflow
+    
+    terminalOverlay.classList.add('crt-on');
+    crtFlash.classList.add('flash');
+
     setTimeout(() => {
+        if (terminalBody.innerHTML === '') {
+            runBootSequence();
+        } else {
+            setTimeout(() => terminalInput.focus(), 200);
+        }
+        isTerminalTransitioning = false;
+    }, 260); // crt-power-on duration
+}
+
+function closeTerminal() {
+    if (isTerminalTransitioning || terminalOverlay.classList.contains('hidden')) return;
+    isTerminalTransitioning = true;
+
+    // Reset and trigger CRT off animations
+    terminalOverlay.classList.remove('crt-on');
+    crtFlash.classList.remove('flash');
+    void crtFlash.offsetWidth;
+    
+    terminalOverlay.classList.add('crt-off');
+    crtFlash.classList.add('flash');
+
+    if (terminalIsFullscreen) {
+        terminalIsFullscreen = false;
+        terminalWindow.classList.remove('terminal-fullscreen');
+        fsExpandIcon.style.display = '';
+        fsCompressIcon.style.display = 'none';
+    }
+
+    setTimeout(() => {
+        // Hide overlay fully
+        terminalOverlay.classList.remove('opacity-100');
+        terminalOverlay.classList.add('opacity-0');
         terminalOverlay.classList.add('hidden');
         terminalOverlay.classList.remove('flex');
-    }, 200);
+        
+        // Reset classes for next open
+        terminalOverlay.classList.remove('crt-off');
+        crtFlash.classList.remove('flash');
+        
+        isTerminalTransitioning = false;
+    }, 200); // crt-power-off duration
 }
 
 if (terminalBtn) {
@@ -253,44 +374,132 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Terminal Interactive Shell Logic
+// ── Terminal: Section mappings (Task 5 — varied extensions) ──
+const sectionPaths = {
+    'about':        'about/README.md',
+    'projects':     'projects/list.sh',
+    'achievements': 'achievements/log.md',
+    'courses':      'courses/catalog.sh',
+    'team':         'team/penguins.log',
+    'media':        'media/watchlist.md',
+    'contact':      'contact/links.sh'
+};
+
+const sectionLabels = {
+    'about':        'About',
+    'projects':     'Projects',
+    'achievements': 'Achievements & Milestones',
+    'courses':      'My Courses',
+    'team':         'Hackathon Team',
+    'media':        'Movies & Shows',
+    'contact':      'Contact'
+};
+
+// Build commandsList dynamically
 const commandsList = [
-    'cat about/README.md', 'cat projects/list.txt', 'cat achievements/log.md',
-    'cat courses/catalog.txt', 'cat team/penguins.txt', 'cat media/watchlist.txt',
-    'cat contact/links.txt', 'help', 'whoami', 'skills', 'sudo hire-me', 'fortune',
-    'clear', 'fedora', 'linux', 'exit'
+    ...Object.values(sectionPaths).map(p => 'cat ' + p),
+    ...Object.keys(sectionPaths).map(s => 'cd ' + s),
+    ...Object.keys(sectionPaths).map(s => 'open ' + s),
+    'help', 'whoami', 'skills', 'sudo hire-me', 'sudo fullscreen',
+    'fortune', 'clear', 'fedora', 'linux', 'exit',
+    'ls', 'pwd', 'date', 'echo', 'man', 'history'
 ];
 
 let commandHistory = [];
 let historyIndex = -1;
 
-const bootText = [
-    "YOUSSEF_TERMINAL v1.0.0",
+// ── Terminal: Block Font Bitmap Data (7×9 dot-matrix per letter) ──
+const BLOCK_FONT = {
+  J: [
+    "0011111",
+    "0011111",
+    "0000110",
+    "0000110",
+    "0000110",
+    "1100110",
+    "1100110",
+    "0111100",
+    "0011000"
+  ],
+  O: [
+    "1111111",
+    "1111111",
+    "1100011",
+    "1100011",
+    "1100011",
+    "1100011",
+    "1100011",
+    "1111111",
+    "1111111"
+  ],
+  E: [
+    "1111111",
+    "1111111",
+    "1100000",
+    "1100000",
+    "1111110",
+    "1111110",
+    "1100000",
+    "1111111",
+    "1111111"
+  ]
+};
+
+// ── Terminal: Render block-logo as CSS grid voxels ──
+function renderBlockLogo(word) {
+    const container = document.createElement('div');
+    container.className = 'block-logo-container';
+    for (const char of word) {
+        const bitmap = BLOCK_FONT[char];
+        if (!bitmap) continue;
+        const letterGrid = document.createElement('div');
+        letterGrid.className = 'block-letter';
+        for (let row = 0; row < 9; row++) {
+            for (let col = 0; col < 7; col++) {
+                const cell = document.createElement('div');
+                cell.className = 'block-cell';
+                if (bitmap[row][col] === '1') {
+                    cell.classList.add('block-cell--on');
+                    cell.style.animationDelay = (Math.random() * 2).toFixed(2) + 's';
+                }
+                letterGrid.appendChild(cell);
+            }
+        }
+        container.appendChild(letterGrid);
+    }
+    return container;
+}
+
+// ── Terminal: Boot Sequence (Tasks 2, 5, 6) ──
+const bootLines = [
+    // Logo + welcome handled separately via HTML
+    "__LOGO__",
+    "__WELCOME__",
     "",
-    "Welcome to Youssef's terminal. Type 'help' to see all available commands.",
+    "Type 'help' to see all available commands and explore the website.",
     "",
-    "┌─ Quick Navigation ─────────────────────────────────────────┐",
-    "│ cat about/README.md             → About                    │",
-    "│ cat projects/list.txt           → Projects                 │",
-    "│ cat achievements/log.md         → Achievements & Milestones│",
-    "│ cat courses/catalog.txt         → My Courses               │",
-    "│ cat team/penguins.txt           → Hackathon Team           │",
-    "│ cat media/watchlist.txt         → Movies & Shows           │",
-    "│ cat contact/links.txt           → Contact                  │",
-    "└──────────────────────────────────────────────────────────┘",
+    "┌─ Quick Navigation ─────────────────────────────────────────────────┐",
+    "│ cat about/README.md      → view content  │ cd about        → jump │",
+    "│ cat projects/list.sh     → view content  │ cd projects     → jump │",
+    "│ cat achievements/log.md  → view content  │ cd achievements → jump │",
+    "│ cat courses/catalog.sh   → view content  │ cd courses      → jump │",
+    "│ cat team/penguins.log    → view content  │ cd team         → jump │",
+    "│ cat media/watchlist.md   → view content  │ cd media        → jump │",
+    "│ cat contact/links.sh     → view content  │ cd contact      → jump │",
+    "└───────────────────────────────────────────────────────────────────┘",
     "",
-    "┌─ Try ──────────────────────────────────────────────────────┐",
-    "│ whoami · skills · sudo hire-me · fortune · clear           │",
-    "└──────────────────────────────────────────────────────────┘",
+    "┌─ Try ──────────────────────────────────────────────────────────────┐",
+    "│ whoami · skills · sudo hire-me · fortune · ls · date · history    │",
+    "└───────────────────────────────────────────────────────────────────┘",
     "",
     "root@fedora:~$ system --check",
-    "<span style='color:var(--success);'>✓ System Status: ONLINE</span>",
-    "<span style='color:var(--success);'>✓ Engineering student @ KSU</span>",
-    "<span style='color:var(--success);'>✓ Connection: SECURE</span>",
+    "<span style='color:var(--brand);'>✓ System Status: ONLINE</span>",
+    "<span style='color:var(--brand);'>✓ Engineering student @ KSU</span>",
+    "<span style='color:var(--brand);'>✓ Connection: SECURE</span>",
     "root@fedora:~$ portfolio --scan",
     "Loading sections...",
     "Loading interactive features...",
-    "<span style='color:var(--success);'>✓ All systems ready</span>",
+    "<span style='color:var(--brand);'>✓ All systems ready</span>",
     ""
 ];
 
@@ -300,11 +509,35 @@ function runBootSequence() {
     terminalBody.innerHTML = '';
     
     function printNextLine() {
-        if (i < bootText.length) {
+        if (i < bootLines.length) {
+            const content = bootLines[i];
+            
+            // Special: render block-logo (voxel/LED-display)
+            if (content === "__LOGO__") {
+                terminalBody.appendChild(renderBlockLogo('JOE'));
+                i++;
+                setTimeout(printNextLine, 120);
+                return;
+            }
+            
+            // Special: render welcome line
+            if (content === "__WELCOME__") {
+                const welcome = document.createElement('div');
+                welcome.className = 'terminal-welcome';
+                welcome.innerHTML = '<span style="color:var(--text-brand-strong);">✦</span> WELCOME TO JOE\'S TERMINAL <span style="color:var(--text-brand-strong);">✦</span>';
+                terminalBody.appendChild(welcome);
+                i++;
+                setTimeout(printNextLine, 120);
+                return;
+            }
+            
             const line = document.createElement('div');
-            // preserve spacing for ASCII table formatting
-            line.style.whiteSpace = "pre";
-            line.innerHTML = bootText[i] === "" ? "<br>" : bootText[i];
+            line.className = 'terminal-line';
+            // Box-drawing lines need strict pre to keep columns aligned
+            if (/^[┌│└]/.test(content)) {
+                line.style.whiteSpace = 'pre';
+            }
+            line.innerHTML = content === "" ? "<br>" : content;
             terminalBody.appendChild(line);
             terminalBody.scrollTop = terminalBody.scrollHeight;
             i++;
@@ -319,12 +552,34 @@ function runBootSequence() {
 
 function printToTerminal(text, isCommand = false) {
     const line = document.createElement('div');
-    line.style.whiteSpace = "pre";
+    line.className = 'terminal-line';
     if (isCommand) {
-        line.innerHTML = `<span style="color:var(--success);">root@fedora</span><span style="color:var(--text-body);">:~$</span> ${text}`;
+        line.innerHTML = `<span style="color:var(--brand);">root@fedora</span><span style="color:var(--text-body);">:~$</span> ${text}`;
     } else {
         line.innerHTML = text;
     }
+    terminalBody.appendChild(line);
+    terminalBody.scrollTop = terminalBody.scrollHeight;
+}
+
+// Print a bullet line using a flex row for perfect wrapping
+function printBulletLine(text) {
+    const line = document.createElement('div');
+    line.className = 'terminal-line';
+    line.style.display = 'flex';
+    line.style.gap = '8px';
+    
+    const arrowSpan = document.createElement('span');
+    arrowSpan.style.flexShrink = '0';
+    arrowSpan.textContent = '→';
+    
+    const contentSpan = document.createElement('span');
+    contentSpan.style.flex = '1';
+    contentSpan.textContent = text;
+    
+    line.appendChild(arrowSpan);
+    line.appendChild(contentSpan);
+    
     terminalBody.appendChild(line);
     terminalBody.scrollTop = terminalBody.scrollHeight;
 }
@@ -337,6 +592,7 @@ const fortunes = [
     "To understand recursion, you must first understand recursion."
 ];
 
+// ── Terminal: Input handler ──
 terminalInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
         const cmd = terminalInput.value.trim();
@@ -368,7 +624,7 @@ terminalInput.addEventListener('keydown', (e) => {
         e.preventDefault(); // prevent losing focus
         const currentInput = terminalInput.value.trim().toLowerCase();
         if (currentInput) {
-            const matches = commandsList.filter(c => c.startsWith(currentInput));
+            const matches = commandsList.filter(c => c.toLowerCase().startsWith(currentInput));
             if (matches.length === 1) {
                 terminalInput.value = matches[0];
             }
@@ -383,26 +639,199 @@ function scrollToSection(id) {
     }
 }
 
+// ── Terminal: Live DOM Content Extraction (Task 3) ──
+// Returns an array of { text: string, isBullet: boolean } objects.
+// Each line is fully flattened — no source-code indentation/newlines leak through.
+function extractSectionContent(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (!section) return [{ text: 'Section not found.', isBullet: false }];
+    const lines = [];
+
+    const cleanText = (str) => str.replace(/\s+/g, ' ').trim();
+
+    switch (sectionId) {
+        case 'about': {
+            const heading = section.querySelector('h2');
+            lines.push({ text: '# ' + (heading ? cleanText(heading.textContent) : 'About'), isBullet: false });
+            const paragraphs = section.querySelectorAll('.terminal-chrome p');
+            paragraphs.forEach(p => {
+                lines.push({ text: cleanText(p.textContent), isBullet: false });
+            });
+            break;
+        }
+        case 'projects': {
+            const heading = section.querySelector('h2');
+            lines.push({ text: '# ' + (heading ? cleanText(heading.textContent) : 'Projects'), isBullet: false });
+            section.querySelectorAll('.card').forEach(card => {
+                const title = card.querySelector('h3');
+                const desc = card.querySelector('p');
+                let t = '';
+                if (title) t += cleanText(title.textContent);
+                if (desc) t += ' — ' + cleanText(desc.textContent);
+                if (t) lines.push({ text: t, isBullet: true });
+            });
+            break;
+        }
+        case 'achievements': {
+            const heading = section.querySelector('h2');
+            lines.push({ text: '# ' + (heading ? cleanText(heading.textContent) : 'Achievements'), isBullet: false });
+            section.querySelectorAll('.carousel-card').forEach(card => {
+                const title = card.querySelector('.font-bold');
+                if (title) {
+                    let t = cleanText(title.textContent);
+                    const dateEl = card.querySelector('div:nth-child(2) > div:nth-child(2)');
+                    if (dateEl && dateEl.textContent.trim().match(/\d{4}/)) {
+                        t += ' (' + cleanText(dateEl.textContent) + ')';
+                    }
+                    lines.push({ text: t, isBullet: true });
+                }
+            });
+            break;
+        }
+        case 'courses': {
+            const heading = section.querySelector('h2');
+            lines.push({ text: '# ' + (heading ? cleanText(heading.textContent) : 'Courses'), isBullet: false });
+            section.querySelectorAll('.card').forEach(card => {
+                const title = card.querySelector('h3');
+                const desc = card.querySelector('p');
+                let t = '';
+                if (title) t += cleanText(title.textContent);
+                if (desc) t += ' — ' + cleanText(desc.textContent);
+                if (t) lines.push({ text: t, isBullet: true });
+            });
+            break;
+        }
+        case 'penguins': {
+            const heading = section.querySelector('h2');
+            lines.push({ text: '# ' + (heading ? cleanText(heading.textContent) : 'Hackathon Team'), isBullet: false });
+            const desc = section.querySelector('#penguins-card > div:nth-child(2) p');
+            if (desc) lines.push({ text: cleanText(desc.textContent), isBullet: false });
+            const tags = section.querySelectorAll('.tag-pill');
+            if (tags.length) {
+                lines.push({ text: 'Tags: ' + Array.from(tags).map(t => cleanText(t.textContent)).join(' · '), isBullet: false });
+            }
+            break;
+        }
+        case 'media': {
+            const heading = section.querySelector('h2');
+            lines.push({ text: '# ' + (heading ? cleanText(heading.textContent) : 'Movies & Shows'), isBullet: false });
+            lines.push({ text: '[ TOP PICKS ]', isBullet: false });
+            section.querySelectorAll('.grid .card').forEach(card => {
+                const titleEl = card.querySelector('[style*="font-weight:600"]');
+                const ratingEl = card.querySelector('[style*="color:var(--brand)"]');
+                if (titleEl) {
+                    let t = cleanText(titleEl.textContent);
+                    if (ratingEl) t += ' — ' + cleanText(ratingEl.textContent);
+                    lines.push({ text: t, isBullet: true });
+                }
+            });
+            break;
+        }
+        case 'contact': {
+            const heading = section.querySelector('h2');
+            lines.push({ text: '# ' + (heading ? cleanText(heading.textContent) : 'Contact'), isBullet: false });
+            const descP = section.querySelector('p');
+            if (descP) lines.push({ text: cleanText(descP.textContent), isBullet: false });
+            section.querySelectorAll('a[href]').forEach(a => {
+                const label = a.getAttribute('aria-label') || cleanText(a.textContent);
+                const href = a.getAttribute('href');
+                if (label && href && href !== '#' && !href.startsWith('#')) {
+                    // Strip any leading '>' or '→' that might have been in the HTML label
+                    const cleanLabel = label.replace(/^[>→]\s*/, '');
+                    lines.push({ text: cleanLabel + ': ' + href, isBullet: true });
+                }
+            });
+            break;
+        }
+        default:
+            lines.push({ text: 'Section data not available.', isBullet: false });
+    }
+    return lines;
+}
+
+// ── Terminal: Man pages (Task 4) ──
+const manPages = {
+    'cat':     'cat <path> — display the contents of a section file.',
+    'cd':      'cd <section> — navigate to a section (closes terminal).',
+    'open':    'open <section> — navigate to a section (closes terminal). Alias for cd.',
+    'ls':      'ls — list available section directories.',
+    'pwd':     'pwd — print the current working directory.',
+    'date':    'date — display the current date and time.',
+    'echo':    'echo <text> — print text to the terminal.',
+    'man':     'man <command> — display manual entry for a command.',
+    'history': 'history — display the list of commands typed in this session.',
+    'help':    'help — show all available commands and navigation.',
+    'whoami':  'whoami — display information about the current user.',
+    'skills':  'skills — list active skill processes.',
+    'sudo':    'sudo <command> — run a command with elevated privileges.',
+    'fortune': 'fortune — display a random programming quote.',
+    'clear':   'clear — clear the terminal screen.',
+    'exit':    'exit — close the terminal overlay.',
+    'fedora':  'fedora — display Fedora/Linux quick reference.',
+    'linux':   'linux — display Fedora/Linux quick reference.'
+};
+
+// ── Terminal: Command Execution ──
 function executeCommand(cmdStr) {
-    const lowerCmd = cmdStr.toLowerCase();
+    const lowerCmd = cmdStr.toLowerCase().trim();
     
+    // ── clear ──
     if (lowerCmd === 'clear') {
         terminalBody.innerHTML = '';
         return;
     }
     
+    // ── exit ──
     if (lowerCmd === 'exit') {
         closeTerminal();
         return;
     }
     
-    if (lowerCmd === 'help') {
-        const helpText = bootText.slice(4, 17).join('<br>');
-        printToTerminal(helpText);
+    // ── sudo fullscreen (Task 1) ──
+    if (lowerCmd === 'sudo fullscreen') {
+        printToTerminal("[sudo] password for root: ******");
+        const entering = !terminalIsFullscreen;
+        toggleTerminalFullscreen();
+        printToTerminal(entering ? "Entering fullscreen mode..." : "Exiting fullscreen mode...");
         printToTerminal("<br>");
         return;
     }
     
+    // ── help ──
+    if (lowerCmd === 'help') {
+        const helpLines = [
+            "┌─ Quick Navigation ─────────────────────────────────────────────────┐",
+            "│ cat about/README.md      → view content  │ cd about        → jump │",
+            "│ cat projects/list.sh     → view content  │ cd projects     → jump │",
+            "│ cat achievements/log.md  → view content  │ cd achievements → jump │",
+            "│ cat courses/catalog.sh   → view content  │ cd courses      → jump │",
+            "│ cat team/penguins.log    → view content  │ cd team         → jump │",
+            "│ cat media/watchlist.md   → view content  │ cd media        → jump │",
+            "│ cat contact/links.sh     → view content  │ cd contact      → jump │",
+            "└───────────────────────────────────────────────────────────────────┘",
+            "",
+            "┌─ Try ──────────────────────────────────────────────────────────────┐",
+            "│ whoami · skills · sudo hire-me · fortune · ls · date · history    │",
+            "└───────────────────────────────────────────────────────────────────┘"
+        ];
+        helpLines.forEach(hl => {
+            if (hl === "") {
+                printToTerminal("<br>");
+            } else {
+                // Box-drawing lines need pre — add inline override
+                const div = document.createElement('div');
+                div.className = 'terminal-line';
+                if (/^[┌│└]/.test(hl)) div.style.whiteSpace = 'pre';
+                div.textContent = hl;
+                terminalBody.appendChild(div);
+                terminalBody.scrollTop = terminalBody.scrollHeight;
+            }
+        });
+        printToTerminal("<br>");
+        return;
+    }
+    
+    // ── whoami ──
     if (lowerCmd === 'whoami') {
         printToTerminal("Youssef - Engineering student at KSU.");
         printToTerminal("Passionate about building systems and elegant web interfaces.");
@@ -410,12 +839,14 @@ function executeCommand(cmdStr) {
         return;
     }
     
+    // ── skills ──
     if (lowerCmd === 'skills') {
         printToTerminal("HTML/CSS · JavaScript · Python · Mathematics · Algorithms · Problem Solving · React · Next.js");
         printToTerminal("<br>");
         return;
     }
     
+    // ── sudo hire-me ──
     if (lowerCmd === 'sudo hire-me') {
         printToTerminal("Executing highly lucrative protocol...");
         printToTerminal("Opening Contact Section...");
@@ -426,6 +857,7 @@ function executeCommand(cmdStr) {
         return;
     }
     
+    // ── fortune ──
     if (lowerCmd === 'fortune') {
         const quote = fortunes[Math.floor(Math.random() * fortunes.length)];
         printToTerminal(quote);
@@ -433,8 +865,9 @@ function executeCommand(cmdStr) {
         return;
     }
     
+    // ── fedora / linux ──
     if (lowerCmd === 'fedora' || lowerCmd === 'linux') {
-        const linuxHelp = [
+        [
             "Fedora / Linux Quick Reference:",
             "  Ctrl+Alt+T        → Open terminal",
             "  Ctrl+Alt+F2..F6   → Switch TTY",
@@ -442,31 +875,107 @@ function executeCommand(cmdStr) {
             "  systemctl status  → Check service status",
             "  journalctl -xe    → View system logs",
             "  Super (Win key)   → Activities overview"
-        ].join('<br>');
-        printToTerminal(linuxHelp);
+        ].forEach(l => printToTerminal(l));
         printToTerminal("<br>");
         return;
     }
     
-    const catMappings = {
-        'cat about/readme.md': 'about',
-        'cat projects/list.txt': 'projects',
-        'cat achievements/log.md': 'achievements',
-        'cat courses/catalog.txt': 'courses',
-        'cat team/penguins.txt': 'penguins',
-        'cat media/watchlist.txt': 'media',
-        'cat contact/links.txt': 'contact'
-    };
-    
-    if (catMappings[lowerCmd]) {
-        printToTerminal(`Opening ${catMappings[lowerCmd].toUpperCase()}...`);
-        setTimeout(() => {
-            closeTerminal();
-            scrollToSection(catMappings[lowerCmd]);
-        }, 800);
+    // ── ls (Task 4) ──
+    if (lowerCmd === 'ls') {
+        const dirs = Object.keys(sectionPaths).map(s => s + '/').join('  ');
+        printToTerminal(dirs);
+        printToTerminal("<br>");
         return;
+    }
+    
+    // ── pwd (Task 4) ──
+    if (lowerCmd === 'pwd') {
+        printToTerminal("/home/youssef");
+        printToTerminal("<br>");
+        return;
+    }
+    
+    // ── date (Task 4) ──
+    if (lowerCmd === 'date') {
+        printToTerminal(new Date().toString());
+        printToTerminal("<br>");
+        return;
+    }
+    
+    // ── echo (Task 4) ──
+    if (lowerCmd.startsWith('echo ')) {
+        const echoText = cmdStr.substring(5); // preserve original casing
+        printToTerminal(echoText);
+        printToTerminal("<br>");
+        return;
+    }
+    if (lowerCmd === 'echo') {
+        printToTerminal("");
+        printToTerminal("<br>");
+        return;
+    }
+    
+    // ── history (Task 4) ──
+    if (lowerCmd === 'history') {
+        commandHistory.forEach((cmd, idx) => {
+            printToTerminal(`  ${idx + 1}  ${cmd}`);
+        });
+        printToTerminal("<br>");
+        return;
+    }
+    
+    // ── man (Task 4) ──
+    if (lowerCmd.startsWith('man ')) {
+        const target = lowerCmd.substring(4).trim();
+        if (manPages[target]) {
+            printToTerminal(manPages[target]);
+        } else {
+            printToTerminal(`No manual entry for ${target}`);
+        }
+        printToTerminal("<br>");
+        return;
+    }
+    
+    // ── cat <path> → print live DOM content inline (Task 3) ──
+    // Build cat mappings: path → sectionId
+    const catMap = {};
+    for (const [id, path] of Object.entries(sectionPaths)) {
+        catMap['cat ' + path.toLowerCase()] = id;
+    }
+    
+    if (catMap[lowerCmd]) {
+        const sectionId = catMap[lowerCmd];
+        const lines = extractSectionContent(sectionId);
+        lines.forEach(ln => {
+            if (ln.isBullet) {
+                printBulletLine(ln.text);
+            } else {
+                printToTerminal(ln.text);
+            }
+        });
+        printToTerminal("<br>");
+        return;
+    }
+    
+    // ── cd <section> / open <section> → navigate (Task 3) ──
+    const navMatch = lowerCmd.match(/^(cd|open)\s+(.+)$/);
+    if (navMatch) {
+        const target = navMatch[2].trim();
+        if (sectionPaths[target]) {
+            printToTerminal(`Navigating to ${sectionLabels[target]}...`);
+            setTimeout(() => {
+                closeTerminal();
+                scrollToSection(target);
+            }, 800);
+            return;
+        } else {
+            printToTerminal(`No such section: ${target}. Available: ${Object.keys(sectionPaths).join(', ')}`);
+            printToTerminal("<br>");
+            return;
+        }
     }
     
     printToTerminal(`command not found: ${cmdStr}. Type 'help' for a list of commands.`);
     printToTerminal("<br>");
 }
+
