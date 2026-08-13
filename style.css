@@ -506,3 +506,26 @@ section {
     45%  { opacity: 0.3; }
     100% { opacity: 0; }
 }
+/* ── Scroll Reveal ── */
+.reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 400ms cubic-bezier(0.16, 1, 0.3, 1), transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-prompt {
+    display: inline-block;
+    color: var(--brand);
+    opacity: 0;
+    margin-right: 6px;
+}
+
+.reveal.revealed .reveal-prompt {
+    opacity: 1;
+    animation: blink-cursor 1s step-end 3;
+}

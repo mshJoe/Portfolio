@@ -83,13 +83,12 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 // Contact Form Logic
+const targetEmail = "youssefammar1742007@gmail.com";
 function submitForm(e) {
     e.preventDefault();
 
     const name = document.getElementById('senderName').value;
     const message = document.getElementById('senderMessage').value;
-
-    const targetEmail = "youssefammar1742007@gmail.com";
     const subject = encodeURIComponent("message from " + name);
     const body = encodeURIComponent(message);
     const mailtoLink = `mailto:${targetEmail}?subject=${subject}&body=${body}`;
@@ -142,7 +141,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function updateCarousel() {
         cCards.forEach((card, index) => {
+            const hasReveal = card.classList.contains('reveal');
+            const hasRevealed = card.classList.contains('revealed');
             card.className = 'carousel-card absolute w-full max-w-[280px] sm:max-w-[320px] bg-[#020804] border border-[#163E4F] rounded-[4px] transition-all duration-300 ease-out cursor-pointer flex flex-col overflow-hidden';
+            if (hasReveal) card.classList.add('reveal');
+            if (hasRevealed) card.classList.add('revealed');
 
             if (index === currIndex) {
                 card.classList.add('left-1/2', 'top-1/2', '-translate-x-1/2', '-translate-y-1/2', 'scale-100', 'opacity-100', 'z-10');
@@ -643,6 +646,7 @@ function scrollToSection(id) {
 // Returns an array of { text: string, isBullet: boolean } objects.
 // Each line is fully flattened — no source-code indentation/newlines leak through.
 function extractSectionContent(sectionId) {
+    if (sectionId === 'team') sectionId = 'penguins';
     const section = document.getElementById(sectionId);
     if (!section) return [{ text: 'Section not found.', isBullet: false }];
     const lines = [];
@@ -676,11 +680,11 @@ function extractSectionContent(sectionId) {
             const heading = section.querySelector('h2');
             lines.push({ text: '# ' + (heading ? cleanText(heading.textContent) : 'Achievements'), isBullet: false });
             section.querySelectorAll('.carousel-card').forEach(card => {
-                const title = card.querySelector('.font-bold');
+                const title = card.querySelector('.font-bold.text-lg.text-\\[\\#F5F3EF\\]');
+                const dateEl = card.querySelector('.text-\\[11px\\].text-\\[\\#389DC6\\]');
                 if (title) {
                     let t = cleanText(title.textContent);
-                    const dateEl = card.querySelector('div:nth-child(2) > div:nth-child(2)');
-                    if (dateEl && dateEl.textContent.trim().match(/\d{4}/)) {
+                    if (dateEl) {
                         t += ' (' + cleanText(dateEl.textContent) + ')';
                     }
                     lines.push({ text: t, isBullet: true });
@@ -704,11 +708,25 @@ function extractSectionContent(sectionId) {
         case 'penguins': {
             const heading = section.querySelector('h2');
             lines.push({ text: '# ' + (heading ? cleanText(heading.textContent) : 'Hackathon Team'), isBullet: false });
+            const teamLabel = section.querySelector('#penguins-card .font-bold');
+            if (teamLabel) lines.push({ text: cleanText(teamLabel.textContent), isBullet: false });
             const desc = section.querySelector('#penguins-card > div:nth-child(2) p');
             if (desc) lines.push({ text: cleanText(desc.textContent), isBullet: false });
-            const tags = section.querySelectorAll('.tag-pill');
+            const tags = section.querySelectorAll('#penguins-card .tag-pill');
             if (tags.length) {
                 lines.push({ text: 'Tags: ' + Array.from(tags).map(t => cleanText(t.textContent)).join(' · '), isBullet: false });
+            }
+            const estLabel = section.querySelector('#penguins-card > div:nth-child(2) > div:nth-child(3)');
+            if (estLabel) lines.push({ text: cleanText(estLabel.textContent), isBullet: false });
+            
+            const discordLink = section.querySelector('#penguins-card .discord-icon-btn');
+            if (discordLink) lines.push({ text: 'Discord: ' + discordLink.getAttribute('href'), isBullet: false });
+            
+            const postCard = section.querySelector('#penguins-card .expandable-inner a.card');
+            if (postCard) {
+                lines.push({ text: 'Post: ' + cleanText(postCard.querySelector('h3').textContent), isBullet: false });
+                lines.push({ text: ' ' + cleanText(postCard.querySelector('p').textContent), isBullet: false });
+                lines.push({ text: ' Link: ' + postCard.getAttribute('href'), isBullet: false });
             }
             break;
         }
@@ -732,15 +750,33 @@ function extractSectionContent(sectionId) {
             lines.push({ text: '# ' + (heading ? cleanText(heading.textContent) : 'Contact'), isBullet: false });
             const descP = section.querySelector('p');
             if (descP) lines.push({ text: cleanText(descP.textContent), isBullet: false });
-            section.querySelectorAll('a[href]').forEach(a => {
-                const label = a.getAttribute('aria-label') || cleanText(a.textContent);
-                const href = a.getAttribute('href');
-                if (label && href && href !== '#' && !href.startsWith('#')) {
-                    // Strip any leading '>' or '→' that might have been in the HTML label
-                    const cleanLabel = label.replace(/^[>→]\s*/, '');
-                    lines.push({ text: cleanLabel + ': ' + href, isBullet: true });
-                }
-            });
+            
+            // GitHub
+            const gitHubLink = section.querySelector('a[aria-label="GitHub"]');
+            if (gitHubLink) {
+                lines.push({ text: 'GitHub: ' + gitHubLink.getAttribute('href'), isBullet: true });
+            }
+            // LinkedIn
+            const linkedinLink = section.querySelector('a[aria-label="LinkedIn"]');
+            if (linkedinLink) {
+                lines.push({ text: 'LinkedIn: ' + linkedinLink.getAttribute('href'), isBullet: true });
+            }
+            
+            // About section social links
+            const aboutSection = document.getElementById('about');
+            if (aboutSection) {
+                ['Instagram', 'Facebook', 'Discord'].forEach(social => {
+                    const link = aboutSection.querySelector(`a[aria-label="${social}"]`);
+                    if (link) {
+                        lines.push({ text: `${social}: ` + link.getAttribute('href'), isBullet: true });
+                    }
+                });
+            }
+            
+            // Email
+            if (typeof targetEmail !== 'undefined') {
+                lines.push({ text: 'Email: ' + targetEmail, isBullet: true });
+            }
             break;
         }
         default:
@@ -937,14 +973,19 @@ function executeCommand(cmdStr) {
     }
     
     // ── cat <path> → print live DOM content inline (Task 3) ──
-    // Build cat mappings: path → sectionId
-    const catMap = {};
-    for (const [id, path] of Object.entries(sectionPaths)) {
-        catMap['cat ' + path.toLowerCase()] = id;
+    let matchedSectionId = null;
+    if (lowerCmd.startsWith('cat ')) {
+        const args = lowerCmd.substring(4).trim();
+        for (const [id, path] of Object.entries(sectionPaths)) {
+            if (args === id || args === path.toLowerCase()) {
+                matchedSectionId = id;
+                break;
+            }
+        }
     }
     
-    if (catMap[lowerCmd]) {
-        const sectionId = catMap[lowerCmd];
+    if (matchedSectionId) {
+        const sectionId = matchedSectionId;
         const lines = extractSectionContent(sectionId);
         lines.forEach(ln => {
             if (ln.isBullet) {
@@ -979,3 +1020,36 @@ function executeCommand(cmdStr) {
     printToTerminal("<br>");
 }
 
+
+// ── Scroll Reveal ──
+function applyStagger(selector, groupSelector, delayStep = 70) {
+    document.querySelectorAll(groupSelector).forEach((group) => {
+        const items = group.querySelectorAll(selector);
+        items.forEach((item, i) => {
+            item.style.transitionDelay = `${i * delayStep}ms`;
+        });
+    });
+}
+
+// Stagger configurations
+applyStagger('.reveal', '.projects-scroll', 80);
+applyStagger('.card.reveal', '#courses .grid', 80);
+applyStagger('.card.reveal', '#media .grid', 60);
+applyStagger('.tag-pill.reveal', '#about .grid', 30);
+applyStagger('.reveal', '#hero .max-w-2xl', 60);
+
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            revealObserver.unobserve(entry.target); // reveal once
+        }
+    });
+}, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -50px 0px'
+});
+
+document.querySelectorAll('.reveal').forEach((el, index) => {
+    revealObserver.observe(el);
+});
